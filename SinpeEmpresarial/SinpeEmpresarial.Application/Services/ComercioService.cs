@@ -49,12 +49,15 @@ namespace SinpeEmpresarial.Application.Services
             return new ComercioListDTO
             {
                 Identificacion = entity.Identificacion,
-                TipoIdentificacion = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
+                TipoIdentificacion = entity.TipoIdentificacion,
+                TipoIdentificacionString = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
                 Nombre = entity.Nombre,
-                TipoDeComercio = GetTipoComercioProsa(entity.TipoDeComercio),
+                TipoDeComercio = entity.TipoDeComercio,
+                TipoDeComercioString = GetTipoComercioProsa(entity.TipoDeComercio),
                 Telefono = entity.Telefono,
                 CorreoElectronico = entity.CorreoElectronico,
-                Estado = entity.Estado ? "Activo" : "Inactivo"
+                Estado = entity.Estado,
+                EstadoString = entity.Estado ? "Activo" : "Inactivo"
             };
         }
 
@@ -91,26 +94,41 @@ namespace SinpeEmpresarial.Application.Services
             return new ComercioDetailDTO
             {
                 Identificacion = entity.Identificacion,
-                TipoIdentificacion = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
+                TipoIdentificacion = entity.TipoIdentificacion,
+                TipoIdentificacionString = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
                 Nombre = entity.Nombre,
-                TipoDeComercio = GetTipoComercioProsa(entity.TipoDeComercio),
+                TipoDeComercio = entity.TipoDeComercio,
+                TipoDeComercioString = GetTipoComercioProsa(entity.TipoDeComercio),
                 Telefono = entity.Telefono,
                 CorreoElectronico = entity.CorreoElectronico,
                 Direccion = entity.Direccion,
                 FechaDeRegistro = entity.FechaDeRegistro,
                 FechaDeModificacion = entity.FechaDeModificacion,
-                Estado = entity.Estado ? "Activo" : "Inactivo"
+                Estado = entity.Estado,
+                EstadoString = entity.Estado ? "Activo" : "Inactivo"
             };
         }
 
         private string GetTipoIdentificacionProsa(int value)
         {
-            return ((TipoIdentificacion)value).ToString();
+            switch ((TipoIdentificacion)value)
+            {
+                case TipoIdentificacion.Fisica: return "Física";
+                case TipoIdentificacion.Juridica: return "Jurídica";
+                default: return "Desconocido";
+            }
         }
 
         private string GetTipoComercioProsa(int value)
         {
-            return ((TipoComercio)value).ToString();
-        }       
+            switch ((TipoComercio)value)
+            {
+                case TipoComercio.Restaurante: return "Restaurantes";
+                case TipoComercio.Supermercado: return "Supermercados";
+                case TipoComercio.Ferreteria: return "Ferreterías";
+                case TipoComercio.Otros: return "Otros";
+                default: return "Desconocido";
+            }
+        }
     }
 }

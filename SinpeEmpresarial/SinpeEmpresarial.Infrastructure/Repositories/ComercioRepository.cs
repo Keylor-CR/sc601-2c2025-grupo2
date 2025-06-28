@@ -32,3 +32,4 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context.SaveChanges();
         }
     }
+}
