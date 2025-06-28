@@ -8,6 +8,7 @@ namespace SinpeEmpresarial.Application.DTOs
 {
     public class ComercioListDTO
     {
+        public int IdComercio { get; set; }
         public string Identificacion { get; set; }
         public int TipoIdentificacion { get; set; }
         public string TipoIdentificacionString { get; set; }

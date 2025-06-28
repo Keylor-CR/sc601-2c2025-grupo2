@@ -6,7 +6,7 @@ GO
 USE SinpeEmpresarialDB;
 GO
 
-CREATE TABLE Comercio (
+CREATE TABLE Comercios (
     IdComercio INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     Identificacion VARCHAR(30) NOT NULL,
     TipoIdentificacion INT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Comercio (
     Estado BIT NOT NULL
 );
 
-CREATE TABLE Caja (
+CREATE TABLE Cajas (
     IdCaja INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     IdComercio INT NOT NULL,
     Nombre VARCHAR(100) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE Caja (
     CONSTRAINT FK_Caja_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio)
 );
 
-CREATE TABLE Sinpe (
+CREATE TABLE Sinpes (
     IdSinpe INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     TelefonoOrigen VARCHAR(10) NOT NULL,
     NombreOrigen VARCHAR(200) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Sinpe (
     Estado BIT NOT NULL
 );
 
-CREATE TABLE Bitacora (
+CREATE TABLE BITACORA_EVENTOS (
     IdEvento INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     TablaDeEvento VARCHAR(20) NOT NULL,
     TipoDeEvento VARCHAR(20) NOT NULL,
@@ -55,8 +55,10 @@ CREATE TABLE Bitacora (
     DatosPosteriores VARCHAR(MAX) NULL
 );
 
-INSERT INTO Comercio (Identificacion, TipoIdentificacion, Nombre, TipoDeComercio, Telefono, CorreoElectronico, Direccion, FechaDeRegistro, Estado)
+INSERT INTO Comercios (Identificacion, TipoIdentificacion, Nombre, TipoDeComercio, Telefono, CorreoElectronico, Direccion, FechaDeRegistro, Estado)
 VALUES 
 ('1-1234-3432', 1, 'Soda La Amistad', 1, '2222-1234', 'soda.amistad@email.com', 'Heredia', GETDATE(), 1),
 ('3-333-555555', 2, 'Soda Mary', 2, '2288-7766', 'admin@sodamary.cr', 'Heredi', GETDATE(), 1),
 ('1-1111-2222', 1, 'Ferreteria Brenes', 3, '2299-8899', 'ventas@ferrebrennes.com', 'Heredia', GETDATE(), 1);
+
+select * from Comercios

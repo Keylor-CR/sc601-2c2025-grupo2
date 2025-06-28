@@ -10,7 +10,7 @@ namespace SinpeEmpresarial.Application.DTOs
     public class ComercioEditDTO
     {
         [Required]
-        public int Id { get; set; }
+        public int IdComercio { get; set; }
 
         [Required]
         public string Nombre { get; set; }
