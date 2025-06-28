@@ -13,7 +13,7 @@ namespace SinpeEmpresarial.Domain.Entities
         public string NombreOrigen { get; set; }
         public string TelefonoDestinatario { get; set; }
         public string NombreDestinatario { get; set; }
-        public float Monto { get; set; }
+        public decimal Monto { get; set; }
         public DateTime FechaDeRegistro { get; set; }
         public string Descripcion { get; set; }
         public bool Estado { get; set; }

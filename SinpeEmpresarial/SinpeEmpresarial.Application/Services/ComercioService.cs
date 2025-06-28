@@ -16,14 +16,14 @@ namespace SinpeEmpresarial.Application.Services
         private readonly IComercioRepository _comercioRepository;
         public List<ComercioListDTO> GetAll()
         {
-            var businesses = _comercioRepository.GetAll();
-            return businesses.Select(MapToListDTO).ToList();
+            var comercios = _comercioRepository.GetAll();
+            return comercios.Select(MapToListDTO).ToList();
         }
 
         public ComercioDetailDTO GetById(int id)
         {
-            var business = _comercioRepository.GetById(id);
-            return business != null ? MapToDetailDTO(business) : null;
+            var comercio = _comercioRepository.GetById(id);
+            return comercio != null ? MapToDetailDTO(comercio) : null;
         }
         public void Register(ComercioCreateDTO dto)
         {
