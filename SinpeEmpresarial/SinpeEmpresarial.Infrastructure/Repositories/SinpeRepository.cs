@@ -1,12 +1,9 @@
 ﻿using SinpeEmpresarial.Domain;
+using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using SinpeEmpresarial.Infrastructure.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SinpeEmpresarial.Infrastructure.Repositories
 {
     public class SinpeRepository : ISinpeRepository
@@ -16,22 +13,17 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         {
             _context = context;
         }
-        public Comercio GetById(int id)
+        public Sinpe GetById(int id)
         {
-            return _context.Comercios.FirstOrDefault(c => c.IdComercio == id);
+            return _context.Sinpes.FirstOrDefault(c => c.IdSinpe == id);
         }
-        public List<Comercio> GetAll()
+        public List<Sinpe> GetAll()
         {
-            return _context.Comercios.ToList();
+            return _context.Sinpes.ToList();
         }
-        public void Add(Comercio comercio)
+        public void Add(Sinpe sinpe)
         {
-            _context.Comercios.Add(comercio);
-            _context.SaveChanges();
-        }
-        public void Update(Comercio comercio)
-        {
-            _context.Entry(comercio).State = System.Data.Entity.EntityState.Modified;
+            _context.Sinpes.Add(sinpe);
             _context.SaveChanges();
         }
     }
