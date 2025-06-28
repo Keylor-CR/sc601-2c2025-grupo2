@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SinpeEmpresarial.Application
+namespace SinpeEmpresarial.Domain.Enums
 {
-    public class Class1
+    public enum EstadoComercio
     {
+        Inactive = 0,
+        Active = 1
     }
 }
