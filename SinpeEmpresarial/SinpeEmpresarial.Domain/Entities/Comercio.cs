@@ -1,6 +1,7 @@
 ﻿using SinpeEmpresarial.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace SinpeEmpresarial.Domain
 {
     public class Comercio
     {
+        [Key]
         public int IdComercio { get; set; }
         public string Identificacion { get; set; }
         public int TipoIdentificacion { get; set; }

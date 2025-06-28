@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Data\SinpeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BitacoraRepository.cs" />
+    <Compile Include="Repositories\CajaRepository.cs" />
+    <Compile Include="Repositories\ComercioRepository.cs" />
+    <Compile Include="Repositories\SinpeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SinpeEmpresarial.Domain\SinpeEmpresarial.Domain.csproj">

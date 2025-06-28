@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\ComercioCreateDTO.cs" />
-    <Compile Include="DTOs\ComercioEditDTO.cs" />
-    <Compile Include="DTOs\ComercioDetailDTO.cs" />
-    <Compile Include="DTOs\ComercioListDTO.cs" />
+    <Compile Include="DTOs\Comercio\ComercioCreateDTO.cs" />
+    <Compile Include="DTOs\Comercio\ComercioEditDTO.cs" />
+    <Compile Include="DTOs\Comercio\ComercioDetailDTO.cs" />
+    <Compile Include="DTOs\Comercio\ComercioListDTO.cs" />
     <Compile Include="Interfaces\IComercioService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ComercioService.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace SinpeEmpresarial.Domain.Entities
 {
     public class Bitacora
     {
+        [Key]
         public int IdEvento { get; set; }
         public string TablaDeEvento { get; set; }
         public string TipoDeEvento { get; set; }

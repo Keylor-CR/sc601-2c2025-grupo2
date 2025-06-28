@@ -14,6 +14,10 @@ namespace SinpeEmpresarial.Application.Services
     public class ComercioService : IComercioService
     {
         private readonly IComercioRepository _comercioRepository;
+        public ComercioService(IComercioRepository comercioRepository)
+        {
+            _comercioRepository = comercioRepository;
+        }
         public List<ComercioListDTO> GetAll()
         {
             var comercios = _comercioRepository.GetAll();

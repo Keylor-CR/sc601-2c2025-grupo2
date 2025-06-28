@@ -1,5 +1,6 @@
 ﻿using SinpeEmpresarial.Application.DTOs;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SinpeEmpresarial.Web.Controllers
     public class ComercioController : Controller
     {
         private readonly IComercioService _comercioService;
+
         public ComercioController(IComercioService comercioService)
         {
             _comercioService = comercioService;

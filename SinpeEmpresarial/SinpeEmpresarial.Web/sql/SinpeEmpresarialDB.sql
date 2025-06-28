@@ -54,3 +54,9 @@ CREATE TABLE Bitacora (
     DatosAnteriores VARCHAR(MAX) NULL,
     DatosPosteriores VARCHAR(MAX) NULL
 );
+
+INSERT INTO Comercio (Identificacion, TipoIdentificacion, Nombre, TipoDeComercio, Telefono, CorreoElectronico, Direccion, FechaDeRegistro, Estado)
+VALUES 
+('1-1234-3432', 1, 'Soda La Amistad', 1, '2222-1234', 'soda.amistad@email.com', 'Heredia', GETDATE(), 1),
+('3-333-555555', 2, 'Soda Mary', 2, '2288-7766', 'admin@sodamary.cr', 'Heredi', GETDATE(), 1),
+('1-1111-2222', 1, 'Ferreteria Brenes', 3, '2299-8899', 'ventas@ferrebrennes.com', 'Heredia', GETDATE(), 1);
