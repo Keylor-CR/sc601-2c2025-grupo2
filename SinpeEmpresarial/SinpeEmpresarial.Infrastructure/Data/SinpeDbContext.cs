@@ -6,7 +6,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
 {
     public class SinpeDbContext : DbContext
     {
-        public SinpeDbContext() : base("name=SinpeDBConnection")
+        public SinpeDbContext() : base("name=SinpeDbContext")
         {
             Database.SetInitializer<SinpeDbContext>(null);
         }
@@ -15,6 +15,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
         public DbSet<Caja> Cajas { get; set; }
         public DbSet<Sinpe> Sinpes { get; set; }
         public DbSet<Bitacora> BITACORA_EVENTOS { get; set; }
+
 
     }
 }

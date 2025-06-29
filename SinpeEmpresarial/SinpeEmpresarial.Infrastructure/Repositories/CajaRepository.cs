@@ -15,15 +15,11 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context = context;
         }
 
-        public Caja GetById(int id)
-        {
-            return _context.Cajas.FirstOrDefault(c => c.IdCaja == id);
-        }
+        public Caja GetById(int id) =>
+            _context.Cajas.FirstOrDefault(c => c.IdCaja == id);
 
-        public List<Caja> GetAll()
-        {
-            return _context.Cajas.ToList();
-        }
+        public List<Caja> GetAll() =>
+            _context.Cajas.ToList();
 
         public void Add(Caja caja)
         {
@@ -37,5 +33,17 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
+        public Caja GetByNombre(string nombre, int idComercio) =>
+            _context.Cajas.FirstOrDefault(c => c.Nombre == nombre && c.IdComercio == idComercio);
+
+        public Caja GetByTelefono(string telefono) =>
+            _context.Cajas.FirstOrDefault(c => c.TelefonoSINPE == telefono && c.Estado);
+
+        public List<Caja> GetByComercio(int idComercio)
+        {
+            return _context.Cajas
+                .Where(c => c.IdComercio == idComercio)
+                .ToList();
+        }
     }
 }

@@ -26,5 +26,11 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context.Sinpes.Add(sinpe);
             _context.SaveChanges();
         }
+        public List<Sinpe> GetByTelefonoDestino(string telefono)
+        {
+            return _context.Sinpes
+                .Where(s => s.TelefonoDestino == telefono)
+                .ToList();
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace SinpeEmpresarial.Application.Services
                     DatosAnteriores = null,
                     DatosPosteriores = JsonConvert.SerializeObject(dto)
                 });
-                throw; // Rethrow si quieres que la UI maneje el error también
+                throw; 
             }
         }
         public void EditComercio(ComercioEditDTO dto)

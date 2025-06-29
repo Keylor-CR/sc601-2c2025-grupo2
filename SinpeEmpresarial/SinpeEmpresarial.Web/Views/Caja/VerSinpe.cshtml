@@ -1,0 +1,37 @@
+﻿@model List<SinpeEmpresarial.Application.DTOs.Sinpe.ListSinpeDto>
+
+@{
+    ViewBag.Title = "SINPE Movimientos";
+}
+
+<h2>SINPE Recibidos</h2>
+
+<p><strong>Teléfono consultado:</strong> @ViewBag.Tel</p>
+<p><strong>SINPE encontrados:</strong> @ViewBag.DebugCount</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Monto</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sinpe in Model)
+        {
+            <tr>
+                <td>@sinpe.NombreOrigen (@sinpe.TelefonoOrigen)</td>
+                <td>@sinpe.NombreDestino (@sinpe.TelefonoDestino)</td>
+                <td>@sinpe.Monto.ToString("C")</td>
+                <td>@sinpe.Descripcion</td>
+                <td>@sinpe.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@(sinpe.Estado ? "Sincronizado" : "No sincronizado")</td>
+            </tr>
+        }
+    </tbody>
+</table>

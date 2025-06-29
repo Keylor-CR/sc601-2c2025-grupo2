@@ -60,6 +60,7 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio })
+                @Html.ActionLink("Ver Cajas", "PorComercio", "Caja", new { comercioId = item.IdComercio }, new { @class = "btn btn-sm btn-primary" })
             </td>
         </tr>
     }

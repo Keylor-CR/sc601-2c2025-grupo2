@@ -1,0 +1,37 @@
+﻿@model SinpeEmpresarial.Application.DTOs.Caja.CreateCajaDto
+
+@{
+    ViewBag.Title = "Registrar Caja";
+}
+
+<h2>Registrar Nueva Caja</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.IdComercio)
+            @Html.TextBoxFor(m => m.IdComercio, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nombre)
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Descripcion)
+            @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TelefonoSINPE)
+            @Html.TextBoxFor(m => m.TelefonoSINPE, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+}
