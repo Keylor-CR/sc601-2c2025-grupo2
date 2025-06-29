@@ -1,6 +1,6 @@
 ﻿using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Entities;
-using System.Data.Entity; 
+using System.Data.Entity;
 
 namespace SinpeEmpresarial.Infrastructure.Data
 {
@@ -8,7 +8,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
     {
         public SinpeDbContext() : base("name=SinpeDBConnection")
         {
-
+            Database.SetInitializer<SinpeDbContext>(null);
         }
 
         public DbSet<Comercio> Comercios { get; set; }
