@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SinpeEmpresarial.Application.DTOs.Bitacora.BitacoraEventoDTO>
+
+
+@{
+    ViewBag.Title = "Bitácora de Eventos";
+}
+
+<h2>Bitácora de Eventos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TablaDeEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoDeEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescripcionDeEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StackTrace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatosAnteriores)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatosPosteriores)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TablaDeEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoDeEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionDeEvento)
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.StackTrace))
+                {
+                    <span title="@item.StackTrace">@item.StackTrace.Substring(0, Math.Min(30, item.StackTrace.Length))...</span>
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.DatosAnteriores))
+                {
+                    <span title="@item.DatosAnteriores">@item.DatosAnteriores.Substring(0, Math.Min(30, item.DatosAnteriores.Length))...</span>
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.DatosPosteriores))
+                {
+                    <span title="@item.DatosPosteriores">@item.DatosPosteriores.Substring(0, Math.Min(30, item.DatosPosteriores.Length))...</span>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

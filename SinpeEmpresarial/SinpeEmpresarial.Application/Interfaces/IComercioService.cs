@@ -9,10 +9,10 @@ namespace SinpeEmpresarial.Application.Interfaces
 {
     public interface IComercioService
     {
-        ComercioDetailDTO GetById(int id);
-        ComercioDetailDTO GetByIdentificacion(string id);
-        List<ComercioListDTO> GetAll();
-        void Register(ComercioCreateDTO dto);
-        void Edit(ComercioEditDTO dto);
+        ComercioDetailDTO GetComercioById(int id);
+        ComercioDetailDTO GetComercioByIdentificacion(string id);
+        List<ComercioListDTO> GetAllComercios();
+        void RegisterComercio(ComercioCreateDTO dto);
+        void EditComercio(ComercioEditDTO dto);
     }
 }
