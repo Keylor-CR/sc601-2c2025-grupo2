@@ -39,7 +39,11 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         public Caja GetByTelefono(string telefono) =>
             _context.Cajas.FirstOrDefault(c => c.TelefonoSINPE == telefono && c.Estado);
 
-        public List<Caja> GetByComercio(int idComercio) =>
-            _context.Cajas.Where(c => c.IdComercio == idComercio).ToList();
+        public List<Caja> GetByComercio(int idComercio)
+        {
+            return _context.Cajas
+                .Where(c => c.IdComercio == idComercio)
+                .ToList();
+        }
     }
 }

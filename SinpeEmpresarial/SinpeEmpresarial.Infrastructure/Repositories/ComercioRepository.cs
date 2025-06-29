@@ -12,6 +12,9 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         public ComercioRepository(SinpeDbContext context)
         {
             _context = context;
+            var dbName = _context.Database.Connection.Database;
+            System.Diagnostics.Debug.WriteLine("📛 Using database: " + dbName);
+
         }
         public Comercio GetById(int id)
         {

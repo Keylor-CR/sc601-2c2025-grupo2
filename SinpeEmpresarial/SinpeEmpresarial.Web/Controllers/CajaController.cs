@@ -1,9 +1,8 @@
 ﻿using SinpeEmpresarial.Application.DTOs.Caja;
 using SinpeEmpresarial.Application.Interfaces;
-using SinpeEmpresarial.Application.Services;
 using System;
-using System.Linq;
 using System.Web.Mvc;
+using System.Linq;
 
 
 public class CajaController : Controller
@@ -17,19 +16,19 @@ public class CajaController : Controller
         _sinpeService = sinpeService;
     }
 
-
-    public ActionResult Index(int? comercioId)
+    // ✅ All Cajas
+    public ActionResult Index()
     {
-        if (comercioId == null)
-        {
-            // Handle gracefully (you could redirect to select comercio)
-            return RedirectToAction("Index", "Comercio");
-        }
-
-        var cajas = _cajaService.GetCajasByComercio(comercioId.Value);
-        return View(cajas);
+        var allCajas = _cajaService.GetAll();
+        return View(allCajas);
     }
 
+    // ✅ Cajas by Comercio
+    public ActionResult PorComercio(int comercioId)
+    {
+        var cajas = _cajaService.GetCajasByComercio(comercioId);
+        return View("Index", cajas);
+    }
 
     public ActionResult Create() => View();
 
@@ -39,7 +38,7 @@ public class CajaController : Controller
         try
         {
             _cajaService.AddCaja(dto);
-            return RedirectToAction("Index", new { comercioId = dto.IdComercio });
+            return RedirectToAction("PorComercio", new { comercioId = dto.IdComercio });
         }
         catch (Exception ex)
         {
@@ -67,10 +66,16 @@ public class CajaController : Controller
         _cajaService.EditCaja(dto);
         return RedirectToAction("Index");
     }
+
     public ActionResult VerSinpe(string telefonoSINPE)
     {
-        var movimientos = _sinpeService.GetByCajaTelefono(telefonoSINPE);
-        return View(movimientos);
+        var sinpes = _sinpeService.GetByCajaTelefono(telefonoSINPE);
+
+        // Debug step: see how many were returned
+        ViewBag.DebugCount = sinpes.Count;
+        ViewBag.Tel = telefonoSINPE;
+
+        return View(sinpes);
     }
 
 }

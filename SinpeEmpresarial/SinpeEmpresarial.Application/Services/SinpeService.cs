@@ -18,7 +18,6 @@ namespace SinpeEmpresarial.Application.Services
         public List<ListSinpeDto> GetByCajaTelefono(string telefonoDestino)
         {
             return _repo.GetByTelefonoDestino(telefonoDestino)
-                .OrderByDescending(x => x.Fecha)
                 .Select(x => new ListSinpeDto
                 {
                     TelefonoOrigen = x.TelefonoOrigen,
@@ -27,7 +26,7 @@ namespace SinpeEmpresarial.Application.Services
                     NombreDestino = x.NombreDestino,
                     Monto = x.Monto,
                     Descripcion = x.Descripcion,
-                    Fecha = x.Fecha,
+                    Fecha = x.FechaDeRegistro,
                     Estado = x.Estado
                 }).ToList();
         }

@@ -15,7 +15,7 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         }
         public Sinpe GetById(int id)
         {
-            return _context.Sinpes.FirstOrDefault(c => c.Id == id);
+            return _context.Sinpes.FirstOrDefault(c => c.IdSinpe == id);
         }
         public List<Sinpe> GetAll()
         {
@@ -30,7 +30,6 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         {
             return _context.Sinpes
                 .Where(s => s.TelefonoDestino == telefono)
-                .OrderByDescending(s => s.Fecha)
                 .ToList();
         }
     }

@@ -29,15 +29,15 @@ CREATE TABLE Cajas (
     FechaDeRegistro DATETIME NOT NULL,
     FechaDeModificacion DATETIME NULL,
     Estado BIT NOT NULL,
-    CONSTRAINT FK_Caja_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercio(IdComercio)
+    CONSTRAINT FK_Caja_Comercio FOREIGN KEY (IdComercio) REFERENCES Comercios(IdComercio)
 );
 
 CREATE TABLE Sinpes (
     IdSinpe INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     TelefonoOrigen VARCHAR(10) NOT NULL,
     NombreOrigen VARCHAR(200) NOT NULL,
-    TelefonoDestinatario VARCHAR(10) NOT NULL,
-    NombreDestinatario VARCHAR(200) NOT NULL,
+    TelefonoDestino VARCHAR(10) NOT NULL,
+    NombreDestino VARCHAR(200) NOT NULL,
     Monto DECIMAL(18,2) NOT NULL,
     FechaDeRegistro DATETIME NOT NULL,
     Descripcion VARCHAR(50) NULL,

@@ -16,6 +16,21 @@ namespace SinpeEmpresarial.Application.Services
         {
             _repo = repo;
         }
+        public List<ListCajaDto> GetAll()
+        {
+            return _repo.GetAll()
+                .Select(c => new ListCajaDto
+                {
+                    IdCaja = c.IdCaja,
+                    Nombre = c.Nombre,
+                    Descripcion = c.Descripcion.Length > 10 ? c.Descripcion.Substring(0, 10) + "..." : c.Descripcion,
+                    TelefonoSINPE = c.TelefonoSINPE,
+                    FechaDeRegistro = c.FechaDeRegistro,
+                    Estado = c.Estado
+                })
+                .ToList();
+        }
+
 
         public List<ListCajaDto> GetCajasByComercio(int idComercio)
         {
@@ -24,7 +39,7 @@ namespace SinpeEmpresarial.Application.Services
                 {
                     IdCaja = c.IdCaja,
                     Nombre = c.Nombre,
-                    Descripcion = string.IsNullOrEmpty(c.Descripcion) ? "" : (c.Descripcion.Length > 10 ? c.Descripcion.Substring(0, 10) + "..." : c.Descripcion),
+                    Descripcion = c.Descripcion.Length > 10 ? c.Descripcion.Substring(0, 10) + "..." : c.Descripcion,
                     TelefonoSINPE = c.TelefonoSINPE,
                     FechaDeRegistro = c.FechaDeRegistro,
                     Estado = c.Estado
