@@ -1,12 +1,13 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SinpeEmpresarial.Domain.Entities
+namespace SinpeEmpresarial.Application.DTOs.Bitacora
 {
-    [Table("BITACORA_EVENTOS")]
-    public class Bitacora
+    public class BitacoraEventoDTO
     {
-        [Key]
         public int IdEvento { get; set; }
         public string TablaDeEvento { get; set; }
         public string TipoDeEvento { get; set; }

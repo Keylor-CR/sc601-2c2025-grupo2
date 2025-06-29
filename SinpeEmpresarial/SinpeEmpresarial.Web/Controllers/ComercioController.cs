@@ -40,14 +40,14 @@ namespace SinpeEmpresarial.Web.Controllers
         // GET: Comercio
         public ActionResult Index()
         {
-            var comercios = _comercioService.GetAll();
+            var comercios = _comercioService.GetAllComercios();
             return View(comercios);
         }
 
         // GET: Comercio/Details/5
         public ActionResult Details(int id)
         {
-            var comercio = _comercioService.GetById(id);
+            var comercio = _comercioService.GetComercioById(id);
             if (comercio == null)
                 return HttpNotFound();
             return View(comercio);
@@ -73,7 +73,7 @@ namespace SinpeEmpresarial.Web.Controllers
 
             try
             {
-                _comercioService.Register(dto);
+                _comercioService.RegisterComercio(dto);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace SinpeEmpresarial.Web.Controllers
         // GET: Comercio/Edit/5
         public ActionResult Edit(int id)
         {
-            var comercio = _comercioService.GetById(id);
+            var comercio = _comercioService.GetComercioById(id);
             if (comercio == null)
                 return HttpNotFound();
 
@@ -119,7 +119,7 @@ namespace SinpeEmpresarial.Web.Controllers
 
             try
             {
-                _comercioService.Edit(editDto);
+                _comercioService.EditComercio(editDto);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

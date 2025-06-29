@@ -2,6 +2,7 @@
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using SinpeEmpresarial.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SinpeEmpresarial.Infrastructure.Repositories
@@ -15,20 +16,15 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context = context;
         }
 
-        public Bitacora GetById(int id)
+        public void Add(Bitacora evento)
         {
-            return _context.Bitacoras.FirstOrDefault(b => b.IdEvento == id);
+            _context.BITACORA_EVENTOS.Add(evento);
+            _context.SaveChanges();
         }
 
         public List<Bitacora> GetAll()
         {
-            return _context.Bitacoras.OrderByDescending(b => b.FechaDeEvento).ToList();
-        }
-
-        public void Add(Bitacora bitacora)
-        {
-            _context.Bitacoras.Add(bitacora);
-            _context.SaveChanges();
+            return _context.BITACORA_EVENTOS.OrderByDescending(b => b.FechaDeEvento).ToList();
         }
     }
 }

@@ -78,6 +78,10 @@ namespace SinpeEmpresarial.Web.App_Start
 
             // EF DbContext
             kernel.Bind<SinpeDbContext>().ToSelf().InRequestScope();
+
+            //bitacora
+            kernel.Bind<IBitacoraRepository>().To<BitacoraRepository>();
+            kernel.Bind<IBitacoraService>().To<BitacoraService>();
         }
     }
 }

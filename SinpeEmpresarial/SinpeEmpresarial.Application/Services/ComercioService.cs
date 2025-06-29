@@ -1,4 +1,5 @@
 ﻿using SinpeEmpresarial.Application.DTOs;
+using SinpeEmpresarial.Application.DTOs.Bitacora;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Enums;
@@ -6,45 +7,104 @@ using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SinpeEmpresarial.Application.Services
 {
     public class ComercioService : IComercioService
     {
         private readonly IComercioRepository _comercioRepository;
-        public ComercioService(IComercioRepository comercioRepository)
+        private readonly IBitacoraService _bitacoraService;
+        public ComercioService(IComercioRepository comercioRepository, IBitacoraService bitacoraService)
         {
             _comercioRepository = comercioRepository;
+            _bitacoraService = bitacoraService;
         }
-        public List<ComercioListDTO> GetAll()
+        public List<ComercioListDTO> GetAllComercios()
         {
             var comercios = _comercioRepository.GetAll();
             return comercios.Select(MapToListDTO).ToList();
         }
 
-        public ComercioDetailDTO GetById(int id)
+        public ComercioDetailDTO GetComercioById(int id)
         {
             var comercio = _comercioRepository.GetById(id);
             return comercio != null ? MapToDetailDTO(comercio) : null;
         }
-        public void Register(ComercioCreateDTO dto)
-        {
-            if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
-                throw new Exception("Ya existe un Comercio con esta identificación");
 
-            var entity = MapFromCreateDTO(dto);
-            _comercioRepository.Add(entity);
+        public ComercioDetailDTO GetComercioByIdentificacion(string id)
+        {
+            throw new NotImplementedException();
         }
-        public void Edit(ComercioEditDTO dto)
-        {
-            var entity = _comercioRepository.GetById(dto.IdComercio);
-            if (entity == null)
-                throw new Exception("Comercio no encontrado");
 
-            MapFromEditDTO(dto, entity);
-            _comercioRepository.Update(entity);
+        public void RegisterComercio(ComercioCreateDTO dto)
+        {
+            try
+            {
+                if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
+                    throw new Exception("Ya existe un Comercio con esta identificación");
+
+                var entity = MapFromCreateDTO(dto);
+                _comercioRepository.Add(entity);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Registrar",
+                    DescripcionDeEvento = "Registro de nuevo comercio",
+                    StackTrace = "",
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(entity)
+                });
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw; // Rethrow si quieres que la UI maneje el error también
+            }
+        }
+        public void EditComercio(ComercioEditDTO dto)
+        {
+            try
+            {
+                var entity = _comercioRepository.GetById(dto.IdComercio);
+                if (entity == null)
+                    throw new Exception("Comercio no encontrado");
+
+                var datosAnteriores = JsonConvert.SerializeObject(entity);
+
+                MapFromEditDTO(dto, entity);
+                _comercioRepository.Update(entity);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Editar",
+                    DescripcionDeEvento = "Edición de comercio",
+                    StackTrace = "",
+                    DatosAnteriores = datosAnteriores,
+                    DatosPosteriores = JsonConvert.SerializeObject(entity)
+                });
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw;
+            }
         }
 
 
@@ -135,11 +195,6 @@ namespace SinpeEmpresarial.Application.Services
                 case TipoComercio.Otros: return "Otros";
                 default: return "Desconocido";
             }
-        }
-
-        public ComercioDetailDTO GetByIdentificacion(string id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -9,9 +9,7 @@ namespace SinpeEmpresarial.Domain.Interfaces.Repositories
 {
     public interface IBitacoraRepository
     {
-        Bitacora GetById(int id);
+        void Add(Bitacora evento);
         List<Bitacora> GetAll();
-        void Add(Bitacora sinpe);
-
     }
 }
