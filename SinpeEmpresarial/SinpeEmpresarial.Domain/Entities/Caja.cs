@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SinpeEmpresarial.Domain.Entities
 {
@@ -18,5 +14,14 @@ namespace SinpeEmpresarial.Domain.Entities
         public DateTime FechaDeRegistro { get; set; }
         public DateTime? FechaDeModificacion { get; set; }
         public bool Estado { get; set; }
+
+        public void Edit(string nombre, string descripcion, string telefonoSINPE, bool estado)
+        {
+            Nombre = nombre;
+            Descripcion = descripcion;
+            TelefonoSINPE = telefonoSINPE;
+            Estado = estado;
+            FechaDeModificacion = DateTime.Now;
+        }
     }
 }

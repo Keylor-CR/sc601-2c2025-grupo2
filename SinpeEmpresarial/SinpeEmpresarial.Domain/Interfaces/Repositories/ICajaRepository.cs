@@ -1,9 +1,5 @@
-﻿using SinpeEmpresarial.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using SinpeEmpresarial.Domain.Entities;
 
 namespace SinpeEmpresarial.Domain.Interfaces.Repositories
 {
@@ -11,7 +7,10 @@ namespace SinpeEmpresarial.Domain.Interfaces.Repositories
     {
         Caja GetById(int id);
         List<Caja> GetAll();
-        void Add(Caja sinpe);
-        void Update(Caja sinpe);
+        Caja GetByNombre(string nombre, int idComercio);
+        Caja GetByTelefono(string telefono);
+        List<Caja> GetByComercio(int idComercio);
+        void Add(Caja caja);
+        void Update(Caja caja);
     }
 }

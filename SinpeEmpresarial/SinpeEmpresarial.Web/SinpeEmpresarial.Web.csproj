@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\ComercioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +194,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Comercio\Index.cshtml" />
+    <Content Include="Views\Caja\Index.cshtml" />
+    <Content Include="Views\Caja\Create.cshtml" />
+    <Content Include="Views\Caja\Edit.cshtml" />
+    <Content Include="Views\Caja\VerSinpe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

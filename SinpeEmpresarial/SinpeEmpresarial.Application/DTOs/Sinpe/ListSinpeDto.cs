@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace SinpeEmpresarial.Domain.Entities
+namespace SinpeEmpresarial.Application.DTOs.Sinpe
 {
-    public class Sinpe
+    public class ListSinpeDto
     {
-        public int Id { get; set; }
         public string TelefonoOrigen { get; set; }
         public string NombreOrigen { get; set; }
         public string TelefonoDestino { get; set; }

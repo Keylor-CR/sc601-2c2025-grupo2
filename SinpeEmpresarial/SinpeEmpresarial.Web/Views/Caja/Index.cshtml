@@ -1,0 +1,41 @@
+﻿@model List<SinpeEmpresarial.Application.DTOs.Caja.ListCajaDto>
+
+@{
+    ViewBag.Title = "Listado de Cajas";
+}
+
+<h2>Cajas Registradas</h2>
+
+<p>
+    @Html.ActionLink("Registrar Nueva Caja", "Create")
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Teléfono SINPE</th>
+            <th>Fecha Registro</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var caja in Model)
+        {
+            <tr>
+                <td>@caja.Nombre</td>
+                <td>@caja.Descripcion</td>
+                <td>@caja.TelefonoSINPE</td>
+                <td>@caja.FechaDeRegistro.ToString("yyyy-MM-dd")</td>
+                <td>@(caja.Estado ? "Activo" : "Inactivo")</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = caja.IdCaja }) |
+                    @Html.ActionLink("Ver SINPE", "VerSinpe", new { telefonoSINPE = caja.TelefonoSINPE }, new { @class = "btn btn-sm btn-info" })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

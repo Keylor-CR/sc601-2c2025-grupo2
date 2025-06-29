@@ -64,8 +64,19 @@ namespace SinpeEmpresarial.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            // Comercio
             kernel.Bind<IComercioRepository>().To<ComercioRepository>();
             kernel.Bind<IComercioService>().To<ComercioService>();
+
+            // Caja
+            kernel.Bind<ICajaRepository>().To<CajaRepository>();
+            kernel.Bind<ICajaService>().To<CajaService>();
+
+            //sinpe
+            kernel.Bind<ISinpeRepository>().To<SinpeRepository>();
+            kernel.Bind<ISinpeService>().To<SinpeService>();
+
+            // EF DbContext
             kernel.Bind<SinpeDbContext>().ToSelf().InRequestScope();
         }
     }
