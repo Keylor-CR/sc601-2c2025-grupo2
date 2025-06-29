@@ -8,7 +8,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
     {
         public SinpeDbContext() : base("name=SinpeDBConnection")
         {
-
+            Database.SetInitializer<SinpeDbContext>(null);
         }
 
         public DbSet<Comercio> Comercios { get; set; }

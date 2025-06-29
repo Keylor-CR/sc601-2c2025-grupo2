@@ -39,40 +39,72 @@ namespace SinpeEmpresarial.Application.Services
 
         public void RegisterComercio(ComercioCreateDTO dto)
         {
-            if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
-                throw new Exception("Ya existe un Comercio con esta identificación");
-
-            var entity = MapFromCreateDTO(dto);
-            _comercioRepository.Add(entity);
-            _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+            try
             {
-                TablaDeEvento = "Comercios",
-                TipoDeEvento = "Registrar",
-                DescripcionDeEvento = "Registro de nuevo comercio",
-                StackTrace = "",
-                DatosAnteriores = null,
-                DatosPosteriores = JsonConvert.SerializeObject(entity)
-            });
+                if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
+                    throw new Exception("Ya existe un Comercio con esta identificación");
+
+                var entity = MapFromCreateDTO(dto);
+                _comercioRepository.Add(entity);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Registrar",
+                    DescripcionDeEvento = "Registro de nuevo comercio",
+                    StackTrace = "",
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(entity)
+                });
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw; // Rethrow si quieres que la UI maneje el error también
+            }
         }
         public void EditComercio(ComercioEditDTO dto)
         {
-            var entity = _comercioRepository.GetById(dto.IdComercio);
-            if (entity == null)
-                throw new Exception("Comercio no encontrado");
-
-            var datosAnteriores = JsonConvert.SerializeObject(entity);
-
-            MapFromEditDTO(dto, entity);
-            _comercioRepository.Update(entity);
-            _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+            try
             {
-                TablaDeEvento = "Comercios",
-                TipoDeEvento = "Editar",
-                DescripcionDeEvento = "Edición de comercio",
-                StackTrace = "",
-                DatosAnteriores = datosAnteriores,
-                DatosPosteriores = JsonConvert.SerializeObject(entity)
-            });
+                var entity = _comercioRepository.GetById(dto.IdComercio);
+                if (entity == null)
+                    throw new Exception("Comercio no encontrado");
+
+                var datosAnteriores = JsonConvert.SerializeObject(entity);
+
+                MapFromEditDTO(dto, entity);
+                _comercioRepository.Update(entity);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Editar",
+                    DescripcionDeEvento = "Edición de comercio",
+                    StackTrace = "",
+                    DatosAnteriores = datosAnteriores,
+                    DatosPosteriores = JsonConvert.SerializeObject(entity)
+                });
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw;
+            }
         }
 
 
