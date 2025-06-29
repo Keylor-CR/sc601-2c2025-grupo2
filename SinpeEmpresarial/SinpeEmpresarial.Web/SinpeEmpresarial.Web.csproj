@@ -198,6 +198,8 @@
     <Content Include="Views\Caja\Create.cshtml" />
     <Content Include="Views\Caja\Edit.cshtml" />
     <Content Include="Views\Caja\VerSinpe.cshtml" />
+    <Content Include="Views\Comercio\Create.cshtml" />
+    <Content Include="Views\Comercio\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

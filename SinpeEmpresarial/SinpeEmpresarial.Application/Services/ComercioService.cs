@@ -31,15 +31,15 @@ namespace SinpeEmpresarial.Application.Services
         }
         public void Register(ComercioCreateDTO dto)
         {
-            if (_comercioRepository.GetAll().Any(x => x.Identificacion == dto.Identificacion))
-                throw new Exception("Ya existe un Comercio con esta identificacion");
+            if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
+                throw new Exception("Ya existe un Comercio con esta identificación");
 
             var entity = MapFromCreateDTO(dto);
             _comercioRepository.Add(entity);
         }
         public void Edit(ComercioEditDTO dto)
         {
-            var entity = _comercioRepository.GetById(dto.Id);
+            var entity = _comercioRepository.GetById(dto.IdComercio);
             if (entity == null)
                 throw new Exception("Comercio no encontrado");
 
@@ -52,6 +52,7 @@ namespace SinpeEmpresarial.Application.Services
         {
             return new ComercioListDTO
             {
+                IdComercio = entity.IdComercio,
                 Identificacion = entity.Identificacion,
                 TipoIdentificacion = entity.TipoIdentificacion,
                 TipoIdentificacionString = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
@@ -97,6 +98,7 @@ namespace SinpeEmpresarial.Application.Services
         {
             return new ComercioDetailDTO
             {
+                IdComercio = entity.IdComercio,
                 Identificacion = entity.Identificacion,
                 TipoIdentificacion = entity.TipoIdentificacion,
                 TipoIdentificacionString = GetTipoIdentificacionProsa(entity.TipoIdentificacion),
@@ -133,6 +135,11 @@ namespace SinpeEmpresarial.Application.Services
                 case TipoComercio.Otros: return "Otros";
                 default: return "Desconocido";
             }
+        }
+
+        public ComercioDetailDTO GetByIdentificacion(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using SinpeEmpresarial.Application.DTOs;
 using SinpeEmpresarial.Application.Interfaces;
-using SinpeEmpresarial.Application.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SinpeEmpresarial.Web.Controllers
@@ -12,6 +8,29 @@ namespace SinpeEmpresarial.Web.Controllers
     public class ComercioController : Controller
     {
         private readonly IComercioService _comercioService;
+
+        private void LlenarViewBags(int? tipoDeComercioSeleccionado = null)
+        {
+            ViewBag.TipoIdentificacion = new SelectList(
+                new[]
+                {
+                    new { Value = 1, Text = "Física" },
+                    new { Value = 2, Text = "Jurídica" }
+                },
+                "Value", "Text"
+            );
+
+            ViewBag.TipoDeComercio = new SelectList(
+                new[]
+                {
+                    new { Value = 1, Text = "Restaurantes" },
+                    new { Value = 2, Text = "Supermercados" },
+                    new { Value = 3, Text = "Ferreterías" },
+                    new { Value = 4, Text = "Otros" }
+                },
+                "Value", "Text", tipoDeComercioSeleccionado
+            );
+        }
 
         public ComercioController(IComercioService comercioService)
         {
@@ -37,6 +56,7 @@ namespace SinpeEmpresarial.Web.Controllers
         // GET: Comercio/Create
         public ActionResult Create()
         {
+            LlenarViewBags();
             return View();
         }
 
@@ -46,7 +66,10 @@ namespace SinpeEmpresarial.Web.Controllers
         public ActionResult Create(ComercioCreateDTO dto)
         {
             if (!ModelState.IsValid)
+            {
+                LlenarViewBags();
                 return View(dto);
+            }
 
             try
             {
@@ -56,6 +79,7 @@ namespace SinpeEmpresarial.Web.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                LlenarViewBags();
                 return View(dto);
             }
         }
@@ -69,7 +93,7 @@ namespace SinpeEmpresarial.Web.Controllers
 
             var editDto = new ComercioEditDTO
             {
-                Id = id,
+                IdComercio = id,
                 Nombre = comercio.Nombre,
                 TipoDeComercio = comercio.TipoDeComercio,
                 Telefono = comercio.Telefono,
@@ -77,26 +101,32 @@ namespace SinpeEmpresarial.Web.Controllers
                 Direccion = comercio.Direccion,
                 Estado = comercio.Estado
             };
+            LlenarViewBags(editDto.TipoDeComercio);
             return View(editDto);
         }
 
         // POST: Comercio/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ComercioEditDTO dto)
+        public ActionResult Edit(ComercioEditDTO editDto)
         {
             if (!ModelState.IsValid)
-                return View(dto);
+            {
+                LlenarViewBags(editDto.TipoDeComercio);
+                return View(editDto);
+            }
+                
 
             try
             {
-                _comercioService.Edit(dto);
+                _comercioService.Edit(editDto);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(dto);
+                LlenarViewBags(editDto.TipoDeComercio);
+                return View(editDto);
             }
         }
     }
