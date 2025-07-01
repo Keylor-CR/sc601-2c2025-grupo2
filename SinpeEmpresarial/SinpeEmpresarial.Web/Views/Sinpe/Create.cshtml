@@ -1,0 +1,76 @@
+@model SinpeEmpresarial.Application.DTOs.Sinpe.SinpeCreateDto
+
+@{
+    ViewBag.Title = "Registrar Pago SINPE";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Sinpe", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelefonoOrigen, "Telefono Origen", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TelefonoOrigen, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese el telefono de origen (ej: 87654321)" } })
+                @Html.ValidationMessageFor(model => model.TelefonoOrigen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreOrigen, "Nombre Origen", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreOrigen, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese el nombre de quien envia" } })
+                @Html.ValidationMessageFor(model => model.NombreOrigen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelefonoDestinatario, "Telefono Destinatario", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TelefonoDestinatario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese el telefono de destino (ej: 87654321)" } })
+                @Html.ValidationMessageFor(model => model.TelefonoDestinatario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreDestinatario, "Nombre Destinatario", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreDestinatario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese el nombre de quien recibe" } })
+                @Html.ValidationMessageFor(model => model.NombreDestinatario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Monto, "Monto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Monto, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "0.01", @min = "1", @placeholder = "Ingrese el monto (ej: 15000.50)" } })
+                @Html.ValidationMessageFor(model => model.Monto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, "Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descripcion del pago (opcional, maximo 50 caracteres)" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Registrar Pago SINPE" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "Index", "Home", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

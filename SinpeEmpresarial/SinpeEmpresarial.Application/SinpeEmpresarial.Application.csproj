@@ -54,6 +54,7 @@
     <Compile Include="DTOs\Comercio\ComercioDetailDTO.cs" />
     <Compile Include="DTOs\Comercio\ComercioListDTO.cs" />
     <Compile Include="DTOs\Sinpe\ListSinpeDto.cs" />
+    <Compile Include="DTOs\Sinpe\SinpeCreateDto.cs" />
     <Compile Include="Interfaces\ICajaService.cs" />
     <Compile Include="Interfaces\IBitacoraService.cs" />
     <Compile Include="Interfaces\IComercioService.cs" />
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\SinpeEmpresarial.Domain\SinpeEmpresarial.Domain.csproj">
       <Project>{9e4bc7df-3b88-4983-bd80-ddcd37df8314}</Project>
       <Name>SinpeEmpresarial.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SinpeEmpresarial.Shared\SinpeEmpresarial.Shared.csproj">
+      <Project>{221CA867-1FF7-44AE-8AEC-BB5688EF39B7}</Project>
+      <Name>SinpeEmpresarial.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

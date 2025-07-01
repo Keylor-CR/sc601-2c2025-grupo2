@@ -1,0 +1,20 @@
+@{
+    ViewBag.Title = "Pago SINPE Registrado";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="alert alert-success">
+    <strong>¡Éxito!</strong> @ViewBag.SuccessMessage
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>El pago SINPE ha sido registrado correctamente en el sistema con estado "No sincronizado".</p>
+        
+        <div class="form-group">
+            @Html.ActionLink("Registrar Nuevo Pago", "Create", "Sinpe", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ir al Inicio", "Index", "Home", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

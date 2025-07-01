@@ -45,5 +45,10 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
                 .Where(c => c.IdComercio == idComercio)
                 .ToList();
         }
+
+        public Caja GetCajaByPhone(string telefono)
+        {
+            return _context.Cajas.FirstOrDefault(c => c.TelefonoSINPE == telefono);
+        }
     }
 }
