@@ -4,13 +4,21 @@
     ViewBag.Title = "Listado de Cajas";
 }
 
+<style>
+    .table-striped tbody tr:nth-of-type(odd) { background-color: #f8f9fa; }
+    .table th { background-color: #e9ecef; font-weight: 600; border-right: 1px solid #dee2e6; }
+    .table td { border-right: 1px solid #dee2e6; }
+    .badge-success { background-color: #28a745; color: white; }
+    .badge-secondary { background-color: #6c757d; color: white; }
+</style>
+
 <h2>Cajas Registradas</h2>
 
 <p>
-    @Html.ActionLink("Registrar Nueva Caja", "Create")
+    @Html.ActionLink("Registrar Nueva Caja", "Create", null, new { @class = "btn btn-primary" })
 </p>
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
