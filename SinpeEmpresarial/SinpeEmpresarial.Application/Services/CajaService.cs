@@ -49,7 +49,7 @@ namespace SinpeEmpresarial.Application.Services
         public void AddCaja(CreateCajaDto dto)
         {
             if (_repo.GetByTelefono(dto.TelefonoSINPE) != null)
-                throw new Exception("Ya existe una caja activa con ese teléfono.");
+                throw new Exception("Ya existe una caja activa con ese telefono.");
 
             if (_repo.GetByNombre(dto.Nombre, dto.IdComercio) != null)
                 throw new Exception("Ya existe una caja con ese nombre en el comercio.");

@@ -9,21 +9,22 @@ namespace SinpeEmpresarial.Application.DTOs
 {
     public class ComercioCreateDTO
     {
-        [Required]
+        [Required(ErrorMessage = "La identificacion es requerida")]
         public string Identificacion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El tipo de identificacion es requerido")]
         public int TipoIdentificacion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El tipo de comercio es requerido")]
         public int TipoDeComercio { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El telefono es requerido")]
         public string Telefono { get; set; }
-        [Required, EmailAddress]
+        [Required(ErrorMessage = "El correo electronico es requerido")]
+        [EmailAddress(ErrorMessage = "El formato del correo electronico no es valido")]
         public string CorreoElectronico { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La direccion es requerida")]
         public string Direccion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El estado es requerido")]
         public bool Estado { get; set; }
     }
 }
