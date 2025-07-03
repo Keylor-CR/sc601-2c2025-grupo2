@@ -80,7 +80,7 @@ namespace SinpeEmpresarial.Application.Services
                     TablaDeEvento = "Sinpes",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nuevo pago SINPE",
-                    StackTrace = null,
+                    StackTrace = "",
                     DatosAnteriores = null, // Para registro nuevo no hay datos anteriores
                     DatosPosteriores = JsonConvert.SerializeObject(sinpe)
                 });

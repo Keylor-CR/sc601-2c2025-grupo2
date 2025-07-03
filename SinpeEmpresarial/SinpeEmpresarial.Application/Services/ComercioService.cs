@@ -87,7 +87,7 @@ namespace SinpeEmpresarial.Application.Services
                     TablaDeEvento = "Comercios",
                     TipoDeEvento = "Editar",
                     DescripcionDeEvento = "Edición de comercio",
-                    StackTrace = null,
+                    StackTrace = "",
                     DatosAnteriores = datosAnteriores,
                     DatosPosteriores = JsonConvert.SerializeObject(entity)
                 });
