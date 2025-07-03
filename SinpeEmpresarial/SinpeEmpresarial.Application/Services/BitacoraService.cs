@@ -47,6 +47,23 @@ namespace SinpeEmpresarial.Application.Services
                     DatosPosteriores = b.DatosPosteriores
                 }).ToList();
         }
+        public List<BitacoraEventoDTO> GetLast(int count)
+        {
+            return _bitacoraRepository.GetAll()
+                .OrderByDescending(b => b.FechaDeEvento)
+                .Take(count)
+                .Select(b => new BitacoraEventoDTO
+                {
+                    IdEvento = b.IdEvento,
+                    TablaDeEvento = b.TablaDeEvento,
+                    TipoDeEvento = b.TipoDeEvento,
+                    FechaDeEvento = b.FechaDeEvento,
+                    DescripcionDeEvento = b.DescripcionDeEvento,
+                    StackTrace = b.StackTrace,
+                    DatosAnteriores = b.DatosAnteriores,
+                    DatosPosteriores = b.DatosPosteriores
+                }).ToList();
+        }
 
 
 

@@ -11,5 +11,6 @@ namespace SinpeEmpresarial.Application.Interfaces
     {
         void RegisterEvento(BitacoraEventoDTO dto);
         List<BitacoraEventoDTO> GetAllEventos();
+        List<BitacoraEventoDTO> GetLast(int count);
     } 
 }

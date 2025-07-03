@@ -8,5 +8,6 @@ namespace SinpeEmpresarial.Application.Interfaces
     {
         List<ListSinpeDto> GetByCajaTelefono(string telefonoDestino);
         ResponseModel RegisterSinpe(SinpeCreateDto dto);
+        List<ListSinpeDto> GetLast(int count);
     }
 }

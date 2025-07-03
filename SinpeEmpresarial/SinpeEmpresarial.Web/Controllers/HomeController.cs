@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using SinpeEmpresarial.Application.Interfaces;
 
-namespace SinpeEmpresarial.Web.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly IComercioService _comercioService;
+    private readonly ISinpeService _sinpeService;
+    private readonly IBitacoraService _bitacoraService;
+
+    public HomeController(
+        IComercioService comercioService,
+        ISinpeService sinpeService,
+        IBitacoraService bitacoraService)
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+        _comercioService = comercioService;
+        _sinpeService = sinpeService;
+        _bitacoraService = bitacoraService;
+    }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+    public ActionResult Index()
+    {
+        var comercios = _comercioService.GetAllComercios();
+        var sinpes = _sinpeService.GetLast(5);
+        var bitacoras = _bitacoraService.GetLast(5);
 
-            return View();
-        }
+        ViewBag.Comercios = comercios;
+        ViewBag.Sinpes = sinpes;
+        ViewBag.Bitacoras = bitacoras;
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        return View();
     }
 }

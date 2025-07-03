@@ -102,7 +102,24 @@ namespace SinpeEmpresarial.Application.Services
 
                 return new ResponseModel(false, ex.Message);
             }
+
         }
+        public List<ListSinpeDto> GetLast(int count)
+        {
+            return _sinpeRepository.GetAll()
+                .Take(count)
+                .Select(x => new ListSinpeDto
+                {
+                    TelefonoOrigen = x.TelefonoOrigen,
+                    NombreOrigen = x.NombreOrigen,
+                    TelefonoDestino = x.TelefonoDestino,
+                    NombreDestino = x.NombreDestino,
+                    Monto = x.Monto,
+                    Descripcion = x.Descripcion,
+                    Estado = x.Estado
+                }).ToList();
+        }
+
     }
 }
 

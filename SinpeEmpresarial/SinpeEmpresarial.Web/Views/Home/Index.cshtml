@@ -1,33 +1,80 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inicio";
+    var comercios = ViewBag.Comercios as List<SinpeEmpresarial.Application.DTOs.ComercioListDTO>;
+    var sinpes = ViewBag.Sinpes as List<SinpeEmpresarial.Application.DTOs.Sinpe.ListSinpeDto>;
+    var bitacoras = ViewBag.Bitacoras as List<SinpeEmpresarial.Application.DTOs.Bitacora.BitacoraEventoDTO>;
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<h2 class="text-center">Bienvenido al sistema SINPE Empresarial</h2>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<div id="comercioCarousel" class="carousel slide mb-4" data-ride="carousel">
+    <div class="carousel-inner">
+        @for (int i = 0; i < comercios.Count; i++)
+        {
+            var c = comercios[i];
+            <div class="carousel-item @(i == 0 ? "active" : "")">
+                <div class="text-center">
+                    <h3>@c.Nombre</h3>
+                    <p><strong>Identificación:</strong> @c.Identificacion</p>
+                    <p><strong>Teléfono:</strong> @c.Telefono</p>
+                    <p><strong>Email:</strong> @c.CorreoElectronico</p>
+                    <p><strong>Estado:</strong> @c.EstadoString</p>
+                </div>
+            </div>
+        }
     </div>
-</main>
+</div>
+<script>
+    setInterval(() => {
+        $('#comercioCarousel').carousel('next');
+    }, 3000);
+</script>
+
+
+<h3>Últimos 5 SINPEs registrados</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in sinpes)
+        {
+            <tr>
+                <td>@s.TelefonoOrigen - @s.NombreOrigen</td>
+                <td>@s.TelefonoDestino - @s.NombreDestino</td>
+                <td>₡@s.Monto</td>
+                <td>@s.Fecha.ToString("g")</td>
+                <td>@(s.Estado ? "Sincronizado" : "No sincronizado")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Últimos 5 eventos en Bitácora</h3>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Tabla</th>
+            <th>Evento</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in bitacoras)
+        {
+            <tr>
+                <td>@b.FechaDeEvento.ToString("g")</td>
+                <td>@b.TablaDeEvento</td>
+                <td>@b.TipoDeEvento</td>
+                <td>@b.DescripcionDeEvento</td>
+            </tr>
+        }
+    </tbody>
+</table>
