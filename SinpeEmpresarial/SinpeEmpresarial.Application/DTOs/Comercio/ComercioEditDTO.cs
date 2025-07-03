@@ -29,6 +29,7 @@ namespace SinpeEmpresarial.Application.DTOs
         public string CorreoElectronico { get; set; }
 
         [Required(ErrorMessage = "La direccion es requerida")]
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
 
         [Required(ErrorMessage = "El estado es requerido")]

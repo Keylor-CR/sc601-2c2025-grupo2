@@ -39,7 +39,7 @@
                 <td>@caja.FechaDeRegistro.ToString("yyyy-MM-dd")</td>
                 <td>@(caja.Estado ? "Activo" : "Inactivo")</td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = caja.IdCaja }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = caja.IdCaja }, new { @class = "btn btn-sm btn-warning" }) |
                     @Html.ActionLink("Ver SINPE", "VerSinpe", new { telefonoSINPE = caja.TelefonoSINPE }, new { @class = "btn btn-sm btn-info" })
 
                 </td>

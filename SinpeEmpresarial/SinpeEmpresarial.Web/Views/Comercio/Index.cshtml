@@ -10,7 +10,6 @@
     .table td { border-right: 1px solid #dee2e6; }
     .badge-success { background-color: #28a745; color: white; }
     .badge-secondary { background-color: #6c757d; color: white; }
-    .btn-group .btn { margin-right: 5px; }
 </style>
 
 <h2>Comercios Registrados</h2>
@@ -56,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.EstadoString)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio })
-                @Html.ActionLink("Ver Cajas", "PorComercio", "Caja", new { comercioId = item.IdComercio }, new { @class = "btn btn-sm btn-primary" })
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-secondary" }) |
+                @Html.ActionLink("Ver Cajas", "PorComercio", "Caja", new { comercioId = item.IdComercio }, new { @class = "btn btn-sm btn-info" })
             </td>
         </tr>
     }

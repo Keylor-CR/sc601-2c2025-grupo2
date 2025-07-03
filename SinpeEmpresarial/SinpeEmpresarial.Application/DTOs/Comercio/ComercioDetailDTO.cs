@@ -22,6 +22,7 @@ namespace SinpeEmpresarial.Application.DTOs
         public string Telefono { get; set; }
         [Display(Name = "Correo Electrónico")]
         public string CorreoElectronico { get; set; }
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
 
         [Display(Name = "Fecha de Registro")]
