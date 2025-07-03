@@ -47,14 +47,15 @@ namespace SinpeEmpresarial.Application.Services
             {
                 // Validacion requerida: verificar que el telefono destino existe y la caja esta activa
                 var cajaDestino = _cajaRepository.GetByTelefono(dto.TelefonoDestinatario);
+
                 if (cajaDestino == null)
                 {
-                    return new ResponseModel(false, "No existe una caja registrada con el numero de telefono destinatario proporcionado.");
+                    throw new InvalidOperationException("No existe una caja registrada con el numero de telefono destinatario proporcionado.");
                 }
 
                 if (!cajaDestino.Estado)
                 {
-                    return new ResponseModel(false, "La caja destino se encuentra inactiva y no puede recibir pagos SINPE.");
+                    throw new InvalidOperationException("La caja destino se encuentra inactiva y no puede recibir pagos SINPE.");
                 }
 
                 // Crear la entidad Sinpe segun los campos requeridos
@@ -76,10 +77,10 @@ namespace SinpeEmpresarial.Application.Services
                 // Registrar evento en bitacora segun requerimientos
                 _bitacoraService.RegisterEvento(new BitacoraEventoDTO
                 {
-                    TablaDeEvento = "Sinpe",
+                    TablaDeEvento = "Sinpes",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nuevo pago SINPE",
-                    StackTrace = "",
+                    StackTrace = null,
                     DatosAnteriores = null, // Para registro nuevo no hay datos anteriores
                     DatosPosteriores = JsonConvert.SerializeObject(sinpe)
                 });
@@ -91,15 +92,15 @@ namespace SinpeEmpresarial.Application.Services
                 // Registrar error en bitacora segun requerimientos
                 _bitacoraService.RegisterEvento(new BitacoraEventoDTO
                 {
-                    TablaDeEvento = "Sinpe",
+                    TablaDeEvento = "Sinpes",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
                     DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                    DatosPosteriores = null
                 });
 
-                return new ResponseModel(false, "Ocurrio un error al procesar el pago SINPE: " + ex.Message);
+                return new ResponseModel(false, ex.Message);
             }
         }
     }

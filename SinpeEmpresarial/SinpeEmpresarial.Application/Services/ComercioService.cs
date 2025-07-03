@@ -65,7 +65,7 @@ namespace SinpeEmpresarial.Application.Services
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
                     DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                    DatosPosteriores = null
                 });
                 throw; 
             }
@@ -87,7 +87,7 @@ namespace SinpeEmpresarial.Application.Services
                     TablaDeEvento = "Comercios",
                     TipoDeEvento = "Editar",
                     DescripcionDeEvento = "Edición de comercio",
-                    StackTrace = "",
+                    StackTrace = null,
                     DatosAnteriores = datosAnteriores,
                     DatosPosteriores = JsonConvert.SerializeObject(entity)
                 });
@@ -101,7 +101,7 @@ namespace SinpeEmpresarial.Application.Services
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
                     DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                    DatosPosteriores = null
                 });
                 throw;
             }
