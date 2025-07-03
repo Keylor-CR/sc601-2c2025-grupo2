@@ -6,7 +6,7 @@ namespace SinpeEmpresarial.Application.DTOs.Sinpe
     {
         [Required(ErrorMessage = "El telefono de origen es requerido")]
         [StringLength(10, MinimumLength = 8, ErrorMessage = "El telefono debe tener entre 8 y 10 digitos")]
-        [RegularExpression(@"^\d{8,10}$", ErrorMessage = "El telefono debe contener solo numeros")]
+        [RegularExpression(@"^\d{8,10}$", ErrorMessage = "El telefono debe contener solo digitos entre 8 y 10 caracteres")]
         public string TelefonoOrigen { get; set; }
 
         [Required(ErrorMessage = "El nombre de origen es requerido")]
@@ -15,7 +15,7 @@ namespace SinpeEmpresarial.Application.DTOs.Sinpe
 
         [Required(ErrorMessage = "El telefono destinatario es requerido")]
         [StringLength(10, MinimumLength = 8, ErrorMessage = "El telefono debe tener entre 8 y 10 digitos")]
-        [RegularExpression(@"^\d{8,10}$", ErrorMessage = "El telefono debe contener solo numeros")]
+        [RegularExpression(@"^\d{8,10}$", ErrorMessage = "El telefono debe contener solo digitos entre 8 y 10 caracteres")]
         public string TelefonoDestinatario { get; set; }
 
         [Required(ErrorMessage = "El nombre destinatario es requerido")]
