@@ -1,19 +1,22 @@
 ﻿using SinpeEmpresarial.Application.DTOs.Caja;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Application.Services;
 using System;
-using System.Web.Mvc;
 using System.Linq;
+using System.Web.Mvc;
 
 
 public class CajaController : Controller
 {
     private readonly ICajaService _cajaService;
     private readonly ISinpeService _sinpeService;
+    private readonly IComercioService _comercioService;
 
-    public CajaController(ICajaService cajaService, ISinpeService sinpeService)
+    public CajaController(ICajaService cajaService, ISinpeService sinpeService, IComercioService comercioService)
     {
         _cajaService = cajaService;
         _sinpeService = sinpeService;
+        _comercioService = comercioService;
     }
 
     // ✅ All Cajas
@@ -30,7 +33,12 @@ public class CajaController : Controller
         return View("Index", cajas);
     }
 
-    public ActionResult Create() => View();
+    public ActionResult Create()
+    {
+        var comercios = _comercioService.GetAllComercios();
+        ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre");
+        return View();
+    }
 
     [HttpPost]
     public ActionResult Create(CreateCajaDto dto)
@@ -49,7 +57,7 @@ public class CajaController : Controller
 
     public ActionResult Edit(int id)
     {
-        var caja = _cajaService.GetCajasByComercio(0).FirstOrDefault(c => c.IdCaja == id);
+        var caja = _cajaService.GetById(id);
         return View(new EditCajaDto
         {
             IdCaja = caja.IdCaja,

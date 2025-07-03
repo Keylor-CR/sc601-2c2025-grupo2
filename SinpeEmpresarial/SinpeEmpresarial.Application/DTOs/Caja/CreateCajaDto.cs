@@ -17,6 +17,7 @@ namespace SinpeEmpresarial.Application.DTOs.Caja
         [Required(ErrorMessage = "El telefono SINPE es requerido")]
         [StringLength(10, MinimumLength = 8, ErrorMessage = "El telefono debe tener entre 8 y 10 digitos")]
         [RegularExpression(@"^\d{8,10}$", ErrorMessage = "El telefono debe contener solo digitos entre 8 y 10 caracteres")]
+        [Display(Name = "Telefono SINPE")]
         public string TelefonoSINPE { get; set; }
     }
 }
