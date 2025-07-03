@@ -5,6 +5,7 @@ namespace SinpeEmpresarial.Application.DTOs.Caja
     public class CreateCajaDto
     {
         [Required(ErrorMessage = "El ID del comercio es requerido")]
+        [Display(Name = "Comercio")]
         public int IdComercio { get; set; }
         
         [Required(ErrorMessage = "El nombre de la caja es requerido")]
