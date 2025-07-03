@@ -49,7 +49,7 @@ public class CajaController : Controller
 
     public ActionResult Edit(int id)
     {
-        var caja = _cajaService.GetCajasByComercio(0).FirstOrDefault(c => c.IdCaja == id);
+        var caja = _cajaService.GetById(id);
         return View(new EditCajaDto
         {
             IdCaja = caja.IdCaja,

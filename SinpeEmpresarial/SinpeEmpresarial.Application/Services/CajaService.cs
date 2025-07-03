@@ -1,20 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using SinpeEmpresarial.Application.DTOs.Bitacora;
 using SinpeEmpresarial.Application.DTOs.Caja;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SinpeEmpresarial.Application.Services
 {
     public class CajaService : ICajaService
     {
         private readonly ICajaRepository _repo;
+        private readonly IBitacoraService _bitacoraService;
 
-        public CajaService(ICajaRepository repo)
+        public CajaService(ICajaRepository repo, IBitacoraService bitacoraService)
         {
             _repo = repo;
+            _bitacoraService = bitacoraService;
+        }
+        public Caja GetById(int id)
+        {
+            return _repo.GetById(id);
         }
         public List<ListCajaDto> GetAll()
         {
@@ -48,30 +56,80 @@ namespace SinpeEmpresarial.Application.Services
 
         public void AddCaja(CreateCajaDto dto)
         {
-            if (_repo.GetByTelefono(dto.TelefonoSINPE) != null)
-                throw new Exception("Ya existe una caja activa con ese telefono.");
+            try {
+                if (_repo.GetByTelefono(dto.TelefonoSINPE) != null)
+                    throw new Exception("Ya existe una caja activa con ese telefono.");
 
-            if (_repo.GetByNombre(dto.Nombre, dto.IdComercio) != null)
-                throw new Exception("Ya existe una caja con ese nombre en el comercio.");
+                if (_repo.GetByNombre(dto.Nombre, dto.IdComercio) != null)
+                    throw new Exception("Ya existe una caja con ese nombre en el comercio.");
 
-            var caja = new Caja
-            {
-                IdComercio = dto.IdComercio,
-                Nombre = dto.Nombre,
-                Descripcion = dto.Descripcion,
-                TelefonoSINPE = dto.TelefonoSINPE,
-                FechaDeRegistro = DateTime.Now,
-                Estado = true
-            };
+                var caja = new Caja
+                {
+                    IdComercio = dto.IdComercio,
+                    Nombre = dto.Nombre,
+                    Descripcion = dto.Descripcion,
+                    TelefonoSINPE = dto.TelefonoSINPE,
+                    FechaDeRegistro = DateTime.Now,
+                    Estado = true
+                };
 
-            _repo.Add(caja);
+                _repo.Add(caja);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Cajas",
+                    TipoDeEvento = "Registrar",
+                    DescripcionDeEvento = "Registro de nueva caja",
+                    StackTrace = "",
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(caja)
+                });
+            }
+            catch(Exception ex) {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Cajas",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw;
+            }
+            
         }
 
         public void EditCaja(EditCajaDto dto)
         {
-            var caja = _repo.GetById(dto.IdCaja) ?? throw new Exception("Caja no encontrada");
-            caja.Edit(dto.Nombre, dto.Descripcion, dto.TelefonoSINPE, dto.Estado);
-            _repo.Update(caja);
+            try {
+                var caja = _repo.GetById(dto.IdCaja) ?? throw new Exception("Caja no encontrada");
+                var datosAnteriores = JsonConvert.SerializeObject(caja);
+                caja.Edit(dto.Nombre, dto.Descripcion, dto.TelefonoSINPE, dto.Estado);
+                _repo.Update(caja);
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Comercios",
+                    TipoDeEvento = "Editar",
+                    DescripcionDeEvento = "Edición de caja",
+                    StackTrace = "",
+                    DatosAnteriores = datosAnteriores,
+                    DatosPosteriores = JsonConvert.SerializeObject(caja)
+                });
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                {
+                    TablaDeEvento = "Cajas",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = JsonConvert.SerializeObject(dto)
+                });
+                throw;
+            }
+
         }
     }
 }

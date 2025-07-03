@@ -15,8 +15,10 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
             _context = context;
         }
 
-        public Caja GetById(int id) =>
-            _context.Cajas.FirstOrDefault(c => c.IdCaja == id);
+        public Caja GetById(int id)
+        {
+            return _context.Cajas.FirstOrDefault(c => c.IdCaja == id);
+        }
 
         public List<Caja> GetAll() =>
             _context.Cajas.ToList();
