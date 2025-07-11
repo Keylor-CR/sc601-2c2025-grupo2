@@ -1,15 +1,18 @@
 ﻿using SinpeEmpresarial.Application.DTOs.Usuario;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Application.Services;
 using System;
 using System.Web.Mvc;
 
 public class UsuarioController : Controller
 {
     private readonly IUsuarioService _usuarioService;
+    private readonly IComercioService _comercioService;
 
-    public UsuarioController(IUsuarioService usuarioService)
+    public UsuarioController(IUsuarioService usuarioService, IComercioService comercioService)
     {
         _usuarioService = usuarioService;
+        _comercioService = comercioService;
     }
 
     public ActionResult Index()
@@ -18,7 +21,12 @@ public class UsuarioController : Controller
         return View(usuarios);
     }
 
-    public ActionResult Create() => View();
+    public ActionResult Create()
+    {
+        var comercios = _comercioService.GetAllComercios();
+        ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre");
+        return View();
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -32,6 +40,8 @@ public class UsuarioController : Controller
         catch (Exception ex)
         {
             ModelState.AddModelError("", ex.Message);
+            var comercios = _comercioService.GetAllComercios();
+            ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre");
             return View(dto);
         }
     }
@@ -41,6 +51,9 @@ public class UsuarioController : Controller
         var u = _usuarioService.GetById(id);
         if (u == null) return HttpNotFound();
 
+        var comercios = _comercioService.GetAllComercios();
+        ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre", u.IdComercio);
+
         var dto = new EditUsuarioDto
         {
             IdUsuario = u.IdUsuario,
@@ -49,7 +62,8 @@ public class UsuarioController : Controller
             SegundoApellido = u.SegundoApellido,
             Identificacion = u.Identificacion,
             CorreoElectronico = u.CorreoElectronico,
-            Estado = u.Estado
+            Estado = u.Estado,
+            IdComercio = u.IdComercio
         };
 
         return View(dto);
@@ -67,6 +81,8 @@ public class UsuarioController : Controller
         catch (Exception ex)
         {
             ModelState.AddModelError("", ex.Message);
+            var comercios = _comercioService.GetAllComercios();
+            ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre", dto.IdComercio);
             return View(dto);
         }
     }

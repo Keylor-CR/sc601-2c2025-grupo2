@@ -25,5 +25,8 @@ namespace SinpeEmpresarial.Application.DTOs.Usuario
         public string CorreoElectronico { get; set; }
 
         public bool Estado { get; set; }
+        [Required]
+        public int IdComercio { get; set; }
+
     }
 }

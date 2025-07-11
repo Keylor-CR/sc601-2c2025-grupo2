@@ -73,10 +73,7 @@ public class UsuarioService : IUsuarioService
 
     public void Edit(EditUsuarioDto dto)
     {
-        var u = _repo.GetById(dto.IdUsuario);
-        if (u == null)
-            throw new Exception("Usuario no encontrado");
-
+        var u = _repo.GetById(dto.IdUsuario) ?? throw new Exception("Usuario no encontrado");
         u.Edit(dto.Nombres, dto.PrimerApellido, dto.SegundoApellido, dto.Identificacion, dto.CorreoElectronico, dto.Estado);
         _repo.Update(u);
     }

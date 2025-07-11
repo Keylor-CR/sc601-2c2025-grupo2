@@ -15,7 +15,7 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.IdComercio)
-            @Html.TextBoxFor(m => m.IdComercio, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.IdComercio, (SelectList)ViewBag.Comercios, "-- Seleccione un comercio --", new { @class = "form-control" })
         </div>
 
         <div class="form-group">

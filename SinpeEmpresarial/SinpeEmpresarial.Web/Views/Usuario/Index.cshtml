@@ -32,7 +32,7 @@
                 <td>@u.Identificacion</td>
                 <td>@u.CorreoElectronico</td>
                 <td>@u.FechaDeRegistro.ToString("yyyy-MM-dd")</td>
-                <td>@u.FechaDeModificacion?.ToString("yyyy-MM-dd")</td>
+                <td>@(u.FechaDeModificacion?.ToString("yyyy-MM-dd") ?? "Sin registro")</td>
                 <td>@(u.Estado ? "Activo" : "Inactivo")</td>
                 <td>@Html.ActionLink("Editar", "Edit", new { id = u.IdUsuario })</td>
             </tr>
