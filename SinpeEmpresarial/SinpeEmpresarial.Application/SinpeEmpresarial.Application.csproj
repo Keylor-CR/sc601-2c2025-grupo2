@@ -45,19 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\Caja\EditCajaDto.cs" />
-    <Compile Include="DTOs\Caja\CreateCajaDto.cs" />
-    <Compile Include="DTOs\Caja\ListCajaDto.cs" />
-    <Compile Include="DTOs\Bitacora\BitacoraEventoDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioCreateDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioEditDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioDetailDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioListDTO.cs" />
-    <Compile Include="DTOs\ConfiguracionComercio\ConfiguracionComercioCreateDto.cs" />
-    <Compile Include="DTOs\ConfiguracionComercio\ConfiguracionComercioEditDto.cs" />
-    <Compile Include="DTOs\ConfiguracionComercio\ConfiguracionComercioListDto.cs" />
-    <Compile Include="DTOs\Sinpe\ListSinpeDto.cs" />
-    <Compile Include="DTOs\Sinpe\SinpeCreateDto.cs" />
+    <Compile Include="Dtos\Caja\EditCajaDto.cs" />
+    <Compile Include="Dtos\Caja\CreateCajaDto.cs" />
+    <Compile Include="Dtos\Caja\ListCajaDto.cs" />
+    <Compile Include="Dtos\Bitacora\BitacoraEventoDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioCreateDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioEditDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioDetailDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioListDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioCreateDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioEditDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioDetailDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioListDto.cs" />
+    <Compile Include="Dtos\Sinpe\ListSinpeDto.cs" />
+    <Compile Include="Dtos\Sinpe\SinpeCreateDto.cs" />
     <Compile Include="Interfaces\ICajaService.cs" />
     <Compile Include="Interfaces\IBitacoraService.cs" />
     <Compile Include="Interfaces\IComercioService.cs" />

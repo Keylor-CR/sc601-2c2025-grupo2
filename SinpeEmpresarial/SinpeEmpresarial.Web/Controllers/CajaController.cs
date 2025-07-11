@@ -1,4 +1,4 @@
-﻿using SinpeEmpresarial.Application.DTOs.Caja;
+﻿using SinpeEmpresarial.Application.Dtos.Caja;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Application.Services;
 using System;
