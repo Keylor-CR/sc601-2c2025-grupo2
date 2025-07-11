@@ -1,0 +1,41 @@
+﻿@model List<SinpeEmpresarial.Application.DTOs.Usuario.ListUsuarioDto>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<h2>Usuarios</h2>
+
+<p>@Html.ActionLink("Registrar Nuevo Usuario", "Create", null, new { @class = "btn btn-primary" })</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Primer Apellido</th>
+            <th>Segundo Apellido</th>
+            <th>Identificación</th>
+            <th>Correo</th>
+            <th>Fecha Registro</th>
+            <th>Fecha Modificación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.Nombres</td>
+                <td>@u.PrimerApellido</td>
+                <td>@u.SegundoApellido</td>
+                <td>@u.Identificacion</td>
+                <td>@u.CorreoElectronico</td>
+                <td>@u.FechaDeRegistro.ToString("yyyy-MM-dd")</td>
+                <td>@u.FechaDeModificacion?.ToString("yyyy-MM-dd")</td>
+                <td>@(u.Estado ? "Activo" : "Inactivo")</td>
+                <td>@Html.ActionLink("Editar", "Edit", new { id = u.IdUsuario })</td>
+            </tr>
+        }
+    </tbody>
+</table>
