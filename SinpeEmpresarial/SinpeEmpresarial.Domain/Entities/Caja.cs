@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SinpeEmpresarial.Domain.Entities
 {
+    [Table("CAJAS")]
     public class Caja
     {
         [Key]
@@ -13,15 +15,6 @@ namespace SinpeEmpresarial.Domain.Entities
         public string TelefonoSINPE { get; set; }
         public DateTime FechaDeRegistro { get; set; }
         public DateTime? FechaDeModificacion { get; set; }
-        public bool Estado { get; set; }
-
-        public void Edit(string nombre, string descripcion, string telefonoSINPE, bool estado)
-        {
-            Nombre = nombre;
-            Descripcion = descripcion;
-            TelefonoSINPE = telefonoSINPE;
-            Estado = estado;
-            FechaDeModificacion = DateTime.Now;
-        }
+        public bool Estado { get; set; } 
     }
 }

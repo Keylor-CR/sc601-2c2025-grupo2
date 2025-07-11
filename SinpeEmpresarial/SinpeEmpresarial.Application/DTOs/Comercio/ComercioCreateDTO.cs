@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SinpeEmpresarial.Application.DTOs
+namespace SinpeEmpresarial.Application.Dtos
 {
-    public class ComercioCreateDTO
+    public class ComercioCreateDto
     {
         [Required(ErrorMessage = "La identificacion es requerida")]
         [Display(Name = "Identificación")]

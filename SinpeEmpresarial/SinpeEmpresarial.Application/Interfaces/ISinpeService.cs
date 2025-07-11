@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SinpeEmpresarial.Application.DTOs.Sinpe;
+using SinpeEmpresarial.Application.Dtos.Sinpe;
 using SinpeEmpresarial.Shared.Models;
 
 namespace SinpeEmpresarial.Application.Interfaces

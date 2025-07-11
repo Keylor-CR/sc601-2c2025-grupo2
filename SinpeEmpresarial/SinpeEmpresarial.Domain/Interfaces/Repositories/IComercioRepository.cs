@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SinpeEmpresarial.Domain.Interfaces.Repositories
 {
     public interface IComercioRepository
     {
 
-        Comercio GetById(int idComercio);
-        Comercio GetByIdentificacion(string id);
+        Comercio GetById(int id);
+        Comercio GetByIdentificacion(string identificacion);
         List<Comercio> GetAll();
-        void Add(Comercio comercio);
-        void Update(Comercio comercio);
+        void Add(Comercio entity);
+        void Update(Comercio entity);
     }
 }

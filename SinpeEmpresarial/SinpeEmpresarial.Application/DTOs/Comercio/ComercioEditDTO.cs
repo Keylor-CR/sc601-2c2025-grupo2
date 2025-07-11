@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SinpeEmpresarial.Application.DTOs
+namespace SinpeEmpresarial.Application.Dtos
 {
-    public class ComercioEditDTO
+    public class ComercioEditDto
     {
         [Required(ErrorMessage = "El ID del comercio es requerido")]
         public int IdComercio { get; set; }

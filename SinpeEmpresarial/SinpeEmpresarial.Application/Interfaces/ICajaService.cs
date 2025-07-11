@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SinpeEmpresarial.Application.DTOs.Caja;
+using SinpeEmpresarial.Application.Dtos.Caja;
 using SinpeEmpresarial.Domain.Entities;
 
 namespace SinpeEmpresarial.Application.Interfaces

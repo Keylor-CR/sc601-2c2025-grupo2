@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SinpeEmpresarial.Application.DTOs.Caja
+namespace SinpeEmpresarial.Application.Dtos.Caja
 {
     public class EditCajaDto
     {

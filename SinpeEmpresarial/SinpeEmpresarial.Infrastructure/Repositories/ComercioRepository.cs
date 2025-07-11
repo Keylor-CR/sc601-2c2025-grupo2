@@ -12,25 +12,22 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         public ComercioRepository(SinpeDbContext context)
         {
             _context = context;
-            var dbName = _context.Database.Connection.Database;
-            System.Diagnostics.Debug.WriteLine("📛 Using database: " + dbName);
-
         }
         public Comercio GetById(int id)
         {
-            return _context.Comercios.FirstOrDefault(c => c.IdComercio == id);
+            return _context.COMERCIOS.FirstOrDefault(c => c.IdComercio == id);
         }
         public Comercio GetByIdentificacion(string identificacion)
         {
-            return _context.Comercios.FirstOrDefault(c => c.Identificacion == identificacion);
+            return _context.COMERCIOS.FirstOrDefault(c => c.Identificacion == identificacion);
         }
         public List<Comercio> GetAll()
         {
-            return _context.Comercios.ToList();
+            return _context.COMERCIOS.ToList();
         }
         public void Add(Comercio comercio)
         {
-            _context.Comercios.Add(comercio);
+            _context.COMERCIOS.Add(comercio);
             _context.SaveChanges();
         }
         public void Update(Comercio comercio)

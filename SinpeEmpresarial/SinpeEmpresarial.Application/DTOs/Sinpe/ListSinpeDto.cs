@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SinpeEmpresarial.Application.DTOs.Sinpe
+namespace SinpeEmpresarial.Application.Dtos.Sinpe
 {
     public class ListSinpeDto
     {

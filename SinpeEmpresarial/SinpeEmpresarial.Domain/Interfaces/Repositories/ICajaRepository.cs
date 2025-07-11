@@ -10,7 +10,7 @@ namespace SinpeEmpresarial.Domain.Interfaces.Repositories
         Caja GetByNombre(string nombre, int idComercio);
         Caja GetByTelefono(string telefono);
         List<Caja> GetByComercio(int idComercio);
-        void Add(Caja caja);
-        void Update(Caja caja);
+        void Add(Caja entity);
+        void Update(Caja entity);
     }
 }

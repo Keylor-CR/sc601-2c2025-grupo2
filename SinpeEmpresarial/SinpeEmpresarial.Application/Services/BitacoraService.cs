@@ -1,9 +1,6 @@
-﻿using SinpeEmpresarial.Application.DTOs;
-using SinpeEmpresarial.Application.DTOs.Bitacora;
+﻿using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Interfaces;
-using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Entities;
-using SinpeEmpresarial.Domain.Enums;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,7 +15,7 @@ namespace SinpeEmpresarial.Application.Services
         {
             _bitacoraRepository = bitacoraRepository;
         }
-        public void RegisterEvento(BitacoraEventoDTO dto)
+        public void RegisterEvento(BitacoraEventoDto dto)
         {
             var evento = new Bitacora
             {
@@ -32,10 +29,10 @@ namespace SinpeEmpresarial.Application.Services
             };
             _bitacoraRepository.Add(evento);
         }
-        public List<BitacoraEventoDTO> GetAllEventos()
+        public List<BitacoraEventoDto> GetAllEventos()
         {
             return _bitacoraRepository.GetAll()
-                .Select(b => new BitacoraEventoDTO
+                .Select(b => new BitacoraEventoDto
                 {
                     IdEvento = b.IdEvento,
                     TablaDeEvento = b.TablaDeEvento,
@@ -47,12 +44,12 @@ namespace SinpeEmpresarial.Application.Services
                     DatosPosteriores = b.DatosPosteriores
                 }).ToList();
         }
-        public List<BitacoraEventoDTO> GetLast(int count)
+        public List<BitacoraEventoDto> GetLast(int count)
         {
             return _bitacoraRepository.GetAll()
                 .OrderByDescending(b => b.FechaDeEvento)
                 .Take(count)
-                .Select(b => new BitacoraEventoDTO
+                .Select(b => new BitacoraEventoDto
                 {
                     IdEvento = b.IdEvento,
                     TablaDeEvento = b.TablaDeEvento,

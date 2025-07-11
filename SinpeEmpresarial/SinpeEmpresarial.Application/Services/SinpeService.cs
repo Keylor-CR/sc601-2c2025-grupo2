@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using SinpeEmpresarial.Application.DTOs.Bitacora;
-using SinpeEmpresarial.Application.DTOs.Sinpe;
+using SinpeEmpresarial.Application.Dtos.Bitacora;
+using SinpeEmpresarial.Application.Dtos.Sinpe;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
@@ -75,9 +75,9 @@ namespace SinpeEmpresarial.Application.Services
                 _sinpeRepository.Add(sinpe);
 
                 // Registrar evento en bitacora segun requerimientos
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Sinpes",
+                    TablaDeEvento = "SINPES",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nuevo pago SINPE",
                     StackTrace = "",
@@ -90,9 +90,9 @@ namespace SinpeEmpresarial.Application.Services
             catch (Exception ex)
             {
                 // Registrar error en bitacora segun requerimientos
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Sinpes",
+                    TablaDeEvento = "SINPES",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),

@@ -63,7 +63,7 @@ namespace SinpeEmpresarial.Web.Controllers
         // POST: Comercio/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ComercioCreateDTO dto)
+        public ActionResult Create(ComercioCreateDto dto)
         {
             if (!ModelState.IsValid)
             {
