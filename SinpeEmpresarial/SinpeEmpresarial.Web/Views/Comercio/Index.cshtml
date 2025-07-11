@@ -16,6 +16,8 @@
 
 <p>
     @Html.ActionLink("Registrar Comercio", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Ver todas las configuraciones", "Index", "ConfiguracionComercio", null, new { @class = "btn btn-info"})
+
 </p>
 <table class="table table-striped table-hover">
     <thead>
@@ -28,6 +30,7 @@
             <th>Correo</th>
             <th>Estado</th>
             <th>Acciones</th>
+            <th>Configuración</th>
         </tr>
 
     @foreach (var item in Model)
@@ -58,6 +61,16 @@
                 @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-secondary" }) |
                 @Html.ActionLink("Ver Cajas", "PorComercio", "Caja", new { comercioId = item.IdComercio }, new { @class = "btn btn-sm btn-info" })
+            </td>
+            <td>
+                @if (item.TieneConfiguracion)
+                {
+                    @Html.ActionLink("Editar Configuración", "Edit", "ConfiguracionComercio", new { idComercio = item.IdComercio, nombre = item.Nombre }, new { @class = "btn btn-sm btn-success" })
+                }
+                else
+                {
+                    @Html.ActionLink("Registrar Configuración", "Create", "ConfiguracionComercio", new { idComercio = item.IdComercio, nombre = item.Nombre }, new { @class = "btn btn-sm btn-primary" })
+                }
             </td>
         </tr>
     }

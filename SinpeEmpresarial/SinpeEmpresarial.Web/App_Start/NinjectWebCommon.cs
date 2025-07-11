@@ -82,6 +82,10 @@ namespace SinpeEmpresarial.Web.App_Start
             //bitacora
             kernel.Bind<IBitacoraRepository>().To<BitacoraRepository>();
             kernel.Bind<IBitacoraService>().To<BitacoraService>();
+
+            //Configuracion comercio
+            kernel.Bind<IConfiguracionComercioRepository>().To<ConfiguracionComercioRepository>();
+            kernel.Bind<IConfiguracionComercioService>().To<ConfiguracionComercioService>();
         }
     }
 }

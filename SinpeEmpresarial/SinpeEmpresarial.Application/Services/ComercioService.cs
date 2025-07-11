@@ -1,29 +1,40 @@
-﻿using SinpeEmpresarial.Application.Dtos;
+﻿using Newtonsoft.Json;
+using SinpeEmpresarial.Application.Dtos;
 using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Enums;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace SinpeEmpresarial.Application.Services
 {
     public class ComercioService : IComercioService
     {
         private readonly IComercioRepository _comercioRepository;
+        private readonly IConfiguracionComercioRepository _configuracioncomercioRepository;
         private readonly IBitacoraService _bitacoraService;
-        public ComercioService(IComercioRepository comercioRepository, IBitacoraService bitacoraService)
+        public ComercioService(IComercioRepository comercioRepository, IConfiguracionComercioRepository configuracioncomercioRepository,  IBitacoraService bitacoraService)
         {
             _comercioRepository = comercioRepository;
+            _configuracioncomercioRepository = configuracioncomercioRepository;
             _bitacoraService = bitacoraService;
         }
         public List<ComercioListDto> GetAllComercios()
         {
             var comercios = _comercioRepository.GetAll();
-            return comercios.Select(MapToListDTO).ToList();
+            var configuraciones = _configuracioncomercioRepository.GetAll();
+            var lista = comercios.Select(MapToListDTO).ToList();
+
+            foreach (var dto in lista)
+            {
+                var conf = configuraciones.FirstOrDefault(c => c.IdComercio == dto.IdComercio);
+                dto.TieneConfiguracion = conf != null;
+            }
+            return lista;
         }
 
         public ComercioDetailDto GetComercioById(int id)

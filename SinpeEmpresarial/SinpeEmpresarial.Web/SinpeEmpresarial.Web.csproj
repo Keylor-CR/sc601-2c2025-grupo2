@@ -141,6 +141,7 @@
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\ComercioController.cs" />
+    <Compile Include="Controllers\ConfiguracionComercioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SinpeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +234,10 @@
     <Content Include="Views\Sinpe\Create.cshtml" />
     <Content Include="Views\Sinpe\Success.cshtml" />
     <Content Include="Views\Comercio\Details.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Create.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Details.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Edit.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

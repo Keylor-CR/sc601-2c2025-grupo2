@@ -21,5 +21,6 @@ namespace SinpeEmpresarial.Application.Dtos
         public bool Estado { get; set; }
         [Display(Name = "Estado")]
         public string EstadoString { get; set; }
+        public bool TieneConfiguracion { get; set; }
     }
 }

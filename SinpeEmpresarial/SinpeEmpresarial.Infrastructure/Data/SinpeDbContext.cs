@@ -15,7 +15,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
         public DbSet<Caja> CAJAS { get; set; }
         public DbSet<Sinpe> SINPES { get; set; }
         public DbSet<Bitacora> BITACORA_EVENTOS { get; set; }
-        public DbSet<ConfiguracionComercio> CONFIGURACIONES_COMERCIO { get; set; }
+        public DbSet<ConfiguracionComercio> CONFIGURACIONES_COMERCIOS { get; set; }
 
 
     }

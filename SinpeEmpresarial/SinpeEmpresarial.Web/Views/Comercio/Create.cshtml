@@ -72,15 +72,15 @@
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+
+                @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
             </div>
         </div>
     </div>
 }
-<br />
-<div>
-    @Html.ActionLink("Volver a la lista", "Index")
-</div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
