@@ -1,21 +1,18 @@
-﻿@model IEnumerable<SinpeEmpresarial.Application.Dtos.ComercioListDto>
+﻿@model IEnumerable<SinpeEmpresarial.Application.Dtos.ConfiguracionComercio.ConfiguracionComercioListDto>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Configuraciones de Comercios</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Comercio.Identificacion)
+            @Html.DisplayNameFor(model => model.NombreComercio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TipoConfiguracion)
+            @Html.DisplayNameFor(model => model.TipoConfiguracionString)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Comision)
@@ -29,35 +26,37 @@
         <th>
             @Html.DisplayNameFor(model => model.Estado)
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comercio.Identificacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoConfiguracion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaDeRegistro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaDeModificacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdConfiguracion }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdConfiguracion }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdConfiguracion })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreComercio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoConfiguracionString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeModificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { idComercio = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdConfiguracion }, new { @class = "btn btn-sm btn-secondary" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@Html.ActionLink("Volver a la lista", "Index", "Comercio", null, new { @class = "btn btn-secondary" })

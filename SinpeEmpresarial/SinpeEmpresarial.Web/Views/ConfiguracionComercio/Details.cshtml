@@ -1,29 +1,27 @@
-﻿@model SinpeEmpresarial.Domain.Entities.ConfiguracionComercio
+﻿@model SinpeEmpresarial.Application.Dtos.ConfiguracionComercio.ConfiguracionComercioDetailDto
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>ConfiguracionComercio</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Comercio.Identificacion)
-        </dt>
+            @Html.DisplayNameFor(model => model.NombreComercio)
 
         <dd>
-            @Html.DisplayFor(model => model.Comercio.Identificacion)
+            @Html.DisplayFor(model => model.NombreComercio)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.TipoConfiguracion)
+            @Html.DisplayNameFor(model => model.TipoConfiguracionString)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TipoConfiguracion)
+            @Html.DisplayFor(model => model.TipoConfiguracionString)
         </dd>
 
         <dt>
@@ -61,6 +59,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdConfiguracion }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { idComercio = Model.IdComercio }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
 </p>

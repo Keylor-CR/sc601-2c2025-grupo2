@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using SinpeEmpresarial.Application.Dtos;
 using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Dtos.ConfiguracionComercio;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Enums;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
@@ -14,16 +16,23 @@ namespace SinpeEmpresarial.Application.Services
     public class ConfiguracionComercioService : IConfiguracionComercioService
     {
         private readonly IConfiguracionComercioRepository _repository;
+        private readonly IComercioRepository _comercioRepository;
         private readonly IBitacoraService _bitacoraService;
-        public ConfiguracionComercioService(IConfiguracionComercioRepository repository, IBitacoraService bitacoraService)
+        public ConfiguracionComercioService(IConfiguracionComercioRepository repository, IComercioRepository comercioRepository, IBitacoraService bitacoraService)
         {
             _repository = repository;
+            _comercioRepository = comercioRepository;
             _bitacoraService = bitacoraService;
         }
         public List<ConfiguracionComercioListDto> GetAllConfiguraciones()
         {
             var configuraciones = _repository.GetAll();
             return configuraciones.Select(MapToListDTO).ToList();
+        }
+        public ConfiguracionComercioDetailDto GetConfiguracionById(int id)
+        {
+            var configuracion = _repository.GetById(id);
+            return MapToDetailDTO(configuracion);
         }
         public ConfiguracionComercioDetailDto GetConfiguracionByComercio(int id)
         {
@@ -121,13 +130,16 @@ namespace SinpeEmpresarial.Application.Services
             entity.Estado = Dto.Estado;
             entity.FechaDeModificacion = DateTime.Now;
         }
+
         private ConfiguracionComercioListDto MapToListDTO(ConfiguracionComercio entity)
         {
+            var comercio = _comercioRepository.GetById(entity.IdComercio);
+
             return new ConfiguracionComercioListDto
             { 
                 IdConfiguracion = entity.IdConfiguracion,
                 IdComercio = entity.IdComercio,
-                NombreComercio = entity.Comercio?.Nombre ?? "Desconocido",
+                NombreComercio = comercio?.Nombre ?? "Desconocido",
                 TipoConfiguracion = entity.TipoConfiguracion,
                 TipoConfiguracionString = GetTipoConfiguracionProsa(entity.TipoConfiguracion),
                 Comision = entity.Comision,
@@ -141,10 +153,13 @@ namespace SinpeEmpresarial.Application.Services
         {
             if (entity == null) return null;
 
+            var comercio = _comercioRepository.GetById(entity.IdComercio);
+
             return new ConfiguracionComercioDetailDto
             {
                 IdConfiguracion = entity.IdConfiguracion,
                 IdComercio = entity.IdComercio,
+                NombreComercio = comercio?.Nombre ?? "Desconocido",
                 TipoConfiguracion = entity.TipoConfiguracion,
                 TipoConfiguracionString = GetTipoConfiguracionProsa(entity.TipoConfiguracion),
                 Comision = entity.Comision,

@@ -65,11 +65,11 @@
             <td>
                 @if (item.TieneConfiguracion)
                 {
-                    @Html.ActionLink("Editar Configuración", "Edit", "ConfiguracionComercio", new { idComercio = item.IdComercio, nombre = item.Nombre }, new { @class = "btn btn-sm btn-success" })
+                    @Html.ActionLink("Editar Configuración", "Edit", "ConfiguracionComercio", new { idComercio = item.IdComercio}, new { @class = "btn btn-sm btn-success" })
                 }
                 else
                 {
-                    @Html.ActionLink("Registrar Configuración", "Create", "ConfiguracionComercio", new { idComercio = item.IdComercio, nombre = item.Nombre }, new { @class = "btn btn-sm btn-primary" })
+                    @Html.ActionLink("Registrar Configuración", "Create", "ConfiguracionComercio", new { idComercio = item.IdComercio}, new { @class = "btn btn-sm btn-primary" })
                 }
             </td>
         </tr>

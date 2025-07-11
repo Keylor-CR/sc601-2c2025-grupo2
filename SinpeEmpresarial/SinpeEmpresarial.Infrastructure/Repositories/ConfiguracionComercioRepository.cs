@@ -16,7 +16,7 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         }
         public ConfiguracionComercio GetById(int id)
         {
-            return _context.CONFIGURACIONES_COMERCIOS.FirstOrDefault(c => c.IdComercio == id);
+            return _context.CONFIGURACIONES_COMERCIOS.FirstOrDefault(c => c.IdConfiguracion == id);
         }
         public ConfiguracionComercio GetByComercioId(int idComercio)
         {

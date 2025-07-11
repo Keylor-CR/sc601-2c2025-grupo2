@@ -1,10 +1,10 @@
 ﻿@model SinpeEmpresarial.Application.Dtos.ConfiguracionComercio.ConfiguracionComercioEditDto
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Configuracion";
 }
 
-<h2>Edit</h2>
+<h2>Editar Configuracion</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ConfiguracionComercio</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdConfiguracion)

@@ -1,11 +1,6 @@
-﻿using SinpeEmpresarial.Application.Dtos;
-using SinpeEmpresarial.Application.Dtos.ConfiguracionComercio;
+﻿using SinpeEmpresarial.Application.Dtos.ConfiguracionComercio;
 using SinpeEmpresarial.Application.Interfaces;
-using SinpeEmpresarial.Application.Services;
-using SinpeEmpresarial.Domain;
-using SinpeEmpresarial.Domain.Enums;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace SinpeEmpresarial.Web.Controllers
@@ -14,6 +9,7 @@ namespace SinpeEmpresarial.Web.Controllers
     {
 
         private readonly IConfiguracionComercioService _configuracioncomercioService;
+        private readonly IComercioService _comercioService;
 
         private void LlenarViewBags(int? tipoDeCofiguracionSeleccionado = null)
         {
@@ -28,9 +24,10 @@ namespace SinpeEmpresarial.Web.Controllers
             );
         }
 
-        public ConfiguracionComercioController(IConfiguracionComercioService configuracioncomercioService)
+        public ConfiguracionComercioController(IConfiguracionComercioService configuracioncomercioService, IComercioService comercioService)
         {
             _configuracioncomercioService = configuracioncomercioService;
+            _comercioService = comercioService;
         }
 
         // GET: Configuracion Comercio
@@ -43,17 +40,18 @@ namespace SinpeEmpresarial.Web.Controllers
         // GET: Configuracion Comercio/Details/5
         public ActionResult Details(int id)
         {
-            var configuracion = _configuracioncomercioService.GetConfiguracionByComercio(id);
+            var configuracion = _configuracioncomercioService.GetConfiguracionById(id);
             if (configuracion == null)
                 return HttpNotFound();
             return View(configuracion);
         }
 
         // GET: Configuracion Comercio/Create
-        public ActionResult Create(int idComercio, string nombre)
+        public ActionResult Create(int idComercio)
         {
             var model = new ConfiguracionComercioCreateDto { IdComercio = idComercio };
-            ViewBag.NombreComercio = nombre;
+            var comercio = _comercioService.GetComercioById(idComercio);
+            ViewBag.NombreComercio = comercio.Nombre;
             LlenarViewBags();
             return View(model);
         }
@@ -81,12 +79,14 @@ namespace SinpeEmpresarial.Web.Controllers
                 return View(dto);
             }
         }
-        // GET: Configuracion Comercio/Edit
-        public ActionResult Edit(int idComercio, string nombre)
+        // GET: ConfiguracionComercio/Edit
+        public ActionResult Edit(int idComercio)
         {
             var configuracion = _configuracioncomercioService.GetConfiguracionByComercio(idComercio);
             if (configuracion == null)
                 return HttpNotFound();
+
+            var comercio = _comercioService.GetComercioById(idComercio);
 
             var editDto = new ConfiguracionComercioEditDto
             { 
@@ -96,9 +96,33 @@ namespace SinpeEmpresarial.Web.Controllers
                 Comision = configuracion.Comision,
                 Estado = configuracion.Estado
             };
-            ViewBag.NombreComercio = nombre;
+            ViewBag.NombreComercio = comercio.Nombre;
             LlenarViewBags(editDto.TipoConfiguracion);
             return View(editDto);
+        }
+
+        // POST: ConfiguracionComercio/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ConfiguracionComercioEditDto editDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                LlenarViewBags(editDto.TipoConfiguracion);
+                return View(editDto);
+            }
+
+            try
+            {
+                _configuracioncomercioService.EditConfiguracionComercio(editDto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                LlenarViewBags(editDto.TipoConfiguracion);
+                return View(editDto);
+            }
         }
     }
 }

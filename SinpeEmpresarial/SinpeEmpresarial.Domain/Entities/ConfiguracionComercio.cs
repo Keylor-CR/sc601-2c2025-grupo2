@@ -15,6 +15,5 @@ namespace SinpeEmpresarial.Domain.Entities
         public DateTime FechaDeRegistro { get; set; }
         public DateTime? FechaDeModificacion { get; set; }
         public bool Estado { get; set; }
-        public virtual Comercio Comercio { get; set; }
     }
 }

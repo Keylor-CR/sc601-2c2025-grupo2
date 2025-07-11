@@ -7,6 +7,7 @@ namespace SinpeEmpresarial.Application.Interfaces
         void RegisterConfiguracionComercio(ConfiguracionComercioCreateDto dto);
         void EditConfiguracionComercio(ConfiguracionComercioEditDto dto);
         List<ConfiguracionComercioListDto> GetAllConfiguraciones();
+        ConfiguracionComercioDetailDto GetConfiguracionById(int id);
         ConfiguracionComercioDetailDto GetConfiguracionByComercio(int idComercio);
 
     }
