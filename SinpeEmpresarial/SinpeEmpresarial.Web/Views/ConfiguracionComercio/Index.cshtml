@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.FechaDeModificacion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.EstadoString)
         </th>
         <th>Acciones</th>
     </tr>
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.FechaDeModificacion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @Html.DisplayFor(modelItem => item.EstadoString)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { idComercio = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
