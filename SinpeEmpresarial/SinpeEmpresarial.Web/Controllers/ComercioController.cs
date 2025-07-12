@@ -1,4 +1,4 @@
-﻿using SinpeEmpresarial.Application.DTOs;
+﻿using SinpeEmpresarial.Application.Dtos;
 using SinpeEmpresarial.Application.Interfaces;
 using System;
 using System.Web.Mvc;
@@ -63,7 +63,7 @@ namespace SinpeEmpresarial.Web.Controllers
         // POST: Comercio/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ComercioCreateDTO dto)
+        public ActionResult Create(ComercioCreateDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace SinpeEmpresarial.Web.Controllers
             if (comercio == null)
                 return HttpNotFound();
 
-            var editDto = new ComercioEditDTO
+            var editDto = new ComercioEditDto
             {
                 IdComercio = id,
                 Nombre = comercio.Nombre,
@@ -108,7 +108,7 @@ namespace SinpeEmpresarial.Web.Controllers
         // POST: Comercio/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ComercioEditDTO editDto)
+        public ActionResult Edit(ComercioEditDto editDto)
         {
             if (!ModelState.IsValid)
             {

@@ -141,6 +141,7 @@
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\ComercioController.cs" />
+    <Compile Include="Controllers\ConfiguracionComercioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SinpeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -237,6 +238,10 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Create.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Details.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Edit.cshtml" />
+    <Content Include="Views\ConfiguracionComercio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

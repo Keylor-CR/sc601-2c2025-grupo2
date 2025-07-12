@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SinpeEmpresarial.Application.Dtos.ConfiguracionComercio.ConfiguracionComercioListDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Configuraciones de Comercios</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreComercio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoConfiguracionString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeModificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoString)
+        </th>
+        <th>Acciones</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreComercio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoConfiguracionString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeModificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoString)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { idComercio = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdConfiguracion }, new { @class = "btn btn-sm btn-secondary" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Volver a la lista", "Index", "Comercio", null, new { @class = "btn btn-secondary" })

@@ -16,20 +16,20 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         }
         public Sinpe GetById(int id)
         {
-            return _context.Sinpes.FirstOrDefault(c => c.IdSinpe == id);
+            return _context.SINPES.FirstOrDefault(c => c.IdSinpe == id);
         }
         public List<Sinpe> GetAll()
         {
-            return _context.Sinpes.ToList();
+            return _context.SINPES.ToList();
         }
         public void Add(Sinpe sinpe)
         {
-            _context.Sinpes.Add(sinpe);
+            _context.SINPES.Add(sinpe);
             _context.SaveChanges();
         }
         public List<Sinpe> GetByTelefonoDestino(string telefono)
         {
-            return _context.Sinpes
+            return _context.SINPES
                 .Where(s => s.TelefonoDestino == telefono)
                 .ToList();
         }

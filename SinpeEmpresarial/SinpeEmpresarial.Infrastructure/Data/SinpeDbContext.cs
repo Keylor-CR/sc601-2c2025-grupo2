@@ -11,12 +11,12 @@ namespace SinpeEmpresarial.Infrastructure.Data
             Database.SetInitializer<SinpeDbContext>(null);
         }
 
-        public DbSet<Comercio> Comercios { get; set; }
-        public DbSet<Caja> Cajas { get; set; }
-        public DbSet<Sinpe> Sinpes { get; set; }
+        public DbSet<Comercio> COMERCIOS { get; set; }
+        public DbSet<Caja> CAJAS { get; set; }
+        public DbSet<Sinpe> SINPES { get; set; }
         public DbSet<Bitacora> BITACORA_EVENTOS { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-
+        public DbSet<ConfiguracionComercio> CONFIGURACIONES_COMERCIOS { get; set; }
 
 
     }

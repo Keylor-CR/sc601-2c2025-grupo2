@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SinpeEmpresarial.Domain.Entities
 {
+    [Table("SINPES")]
     public class Sinpe
     {
         [Key]

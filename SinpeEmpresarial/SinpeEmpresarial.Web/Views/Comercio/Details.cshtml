@@ -1,4 +1,4 @@
-﻿@model SinpeEmpresarial.Application.DTOs.ComercioDetailDTO
+﻿@model SinpeEmpresarial.Application.Dtos.ComercioDetailDto
 
 @{
     ViewBag.Title = "Detalles";
@@ -92,6 +92,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdComercio }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdComercio }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
 </p>

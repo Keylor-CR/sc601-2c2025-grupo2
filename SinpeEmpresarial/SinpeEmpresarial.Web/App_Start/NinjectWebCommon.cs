@@ -87,6 +87,9 @@ namespace SinpeEmpresarial.Web.App_Start
             kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
 
+            //Configuracion comercio
+            kernel.Bind<IConfiguracionComercioRepository>().To<ConfiguracionComercioRepository>();
+            kernel.Bind<IConfiguracionComercioService>().To<ConfiguracionComercioService>();
         }
     }
 }

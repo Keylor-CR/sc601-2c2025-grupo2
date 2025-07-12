@@ -17,15 +17,15 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
 
         public Caja GetById(int id)
         {
-            return _context.Cajas.FirstOrDefault(c => c.IdCaja == id);
+            return _context.CAJAS.FirstOrDefault(c => c.IdCaja == id);
         }
 
         public List<Caja> GetAll() =>
-            _context.Cajas.ToList();
+            _context.CAJAS.ToList();
 
         public void Add(Caja caja)
         {
-            _context.Cajas.Add(caja);
+            _context.CAJAS.Add(caja);
             _context.SaveChanges();
         }
 
@@ -36,21 +36,21 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         }
 
         public Caja GetByNombre(string nombre, int idComercio) =>
-            _context.Cajas.FirstOrDefault(c => c.Nombre == nombre && c.IdComercio == idComercio);
+            _context.CAJAS.FirstOrDefault(c => c.Nombre == nombre && c.IdComercio == idComercio);
 
         public Caja GetByTelefono(string telefono) =>
-            _context.Cajas.FirstOrDefault(c => c.TelefonoSINPE == telefono && c.Estado);
+            _context.CAJAS.FirstOrDefault(c => c.TelefonoSINPE == telefono && c.Estado);
 
         public List<Caja> GetByComercio(int idComercio)
         {
-            return _context.Cajas
+            return _context.CAJAS
                 .Where(c => c.IdComercio == idComercio)
                 .ToList();
         }
 
         public Caja GetCajaByPhone(string telefono)
         {
-            return _context.Cajas.FirstOrDefault(c => c.TelefonoSINPE == telefono);
+            return _context.CAJAS.FirstOrDefault(c => c.TelefonoSINPE == telefono);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SinpeEmpresarial.Application.DTOs;
+﻿using SinpeEmpresarial.Application.Dtos;
 using SinpeEmpresarial.Application.Interfaces;
 using System.Web.Mvc;
 

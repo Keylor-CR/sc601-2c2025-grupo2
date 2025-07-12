@@ -1,43 +1,54 @@
-﻿using SinpeEmpresarial.Application.DTOs;
-using SinpeEmpresarial.Application.DTOs.Bitacora;
+﻿using Newtonsoft.Json;
+using SinpeEmpresarial.Application.Dtos;
+using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Enums;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace SinpeEmpresarial.Application.Services
 {
     public class ComercioService : IComercioService
     {
         private readonly IComercioRepository _comercioRepository;
+        private readonly IConfiguracionComercioRepository _configuracioncomercioRepository;
         private readonly IBitacoraService _bitacoraService;
-        public ComercioService(IComercioRepository comercioRepository, IBitacoraService bitacoraService)
+        public ComercioService(IComercioRepository comercioRepository, IConfiguracionComercioRepository configuracioncomercioRepository,  IBitacoraService bitacoraService)
         {
             _comercioRepository = comercioRepository;
+            _configuracioncomercioRepository = configuracioncomercioRepository;
             _bitacoraService = bitacoraService;
         }
-        public List<ComercioListDTO> GetAllComercios()
+        public List<ComercioListDto> GetAllComercios()
         {
             var comercios = _comercioRepository.GetAll();
-            return comercios.Select(MapToListDTO).ToList();
+            var configuraciones = _configuracioncomercioRepository.GetAll();
+            var lista = comercios.Select(MapToListDTO).ToList();
+
+            foreach (var dto in lista)
+            {
+                var conf = configuraciones.FirstOrDefault(c => c.IdComercio == dto.IdComercio);
+                dto.TieneConfiguracion = conf != null;
+            }
+            return lista;
         }
 
-        public ComercioDetailDTO GetComercioById(int id)
+        public ComercioDetailDto GetComercioById(int id)
         {
             var comercio = _comercioRepository.GetById(id);
             return comercio != null ? MapToDetailDTO(comercio) : null;
         }
 
-        public ComercioDetailDTO GetComercioByIdentificacion(string id)
+        public ComercioDetailDto GetComercioByIdentificacion(string id)
         {
             throw new NotImplementedException();
         }
 
-        public void RegisterComercio(ComercioCreateDTO dto)
+        public void RegisterComercio(ComercioCreateDto dto)
         {
             try
             {
@@ -46,9 +57,9 @@ namespace SinpeEmpresarial.Application.Services
 
                 var entity = MapFromCreateDTO(dto);
                 _comercioRepository.Add(entity);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Comercios",
+                    TablaDeEvento = "COMERCIOS",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nuevo comercio",
                     StackTrace = "",
@@ -58,9 +69,9 @@ namespace SinpeEmpresarial.Application.Services
             }
             catch (Exception ex)
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Comercios",
+                    TablaDeEvento = "COMERCIOS",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
@@ -70,7 +81,7 @@ namespace SinpeEmpresarial.Application.Services
                 throw; 
             }
         }
-        public void EditComercio(ComercioEditDTO dto)
+        public void EditComercio(ComercioEditDto dto)
         {
             try
             {
@@ -82,9 +93,9 @@ namespace SinpeEmpresarial.Application.Services
 
                 MapFromEditDTO(dto, entity);
                 _comercioRepository.Update(entity);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Comercios",
+                    TablaDeEvento = "COMERCIOS",
                     TipoDeEvento = "Editar",
                     DescripcionDeEvento = "Edición de comercio",
                     StackTrace = "",
@@ -94,9 +105,9 @@ namespace SinpeEmpresarial.Application.Services
             }
             catch (Exception ex)
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Comercios",
+                    TablaDeEvento = "COMERCIOS",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
@@ -108,9 +119,9 @@ namespace SinpeEmpresarial.Application.Services
         }
 
 
-        private ComercioListDTO MapToListDTO(Comercio entity)
+        private ComercioListDto MapToListDTO(Comercio entity)
         {
-            return new ComercioListDTO
+            return new ComercioListDto
             {
                 IdComercio = entity.IdComercio,
                 Identificacion = entity.Identificacion,
@@ -126,7 +137,7 @@ namespace SinpeEmpresarial.Application.Services
             };
         }
 
-        private Comercio MapFromCreateDTO(ComercioCreateDTO dto)
+        private Comercio MapFromCreateDTO(ComercioCreateDto dto)
         {
             return new Comercio
             {
@@ -143,7 +154,7 @@ namespace SinpeEmpresarial.Application.Services
             };
         }
 
-        private void MapFromEditDTO(ComercioEditDTO dto, Comercio entity)
+        private void MapFromEditDTO(ComercioEditDto dto, Comercio entity)
         {
             entity.Nombre = dto.Nombre;
             entity.TipoDeComercio = dto.TipoDeComercio;
@@ -154,9 +165,9 @@ namespace SinpeEmpresarial.Application.Services
             entity.Estado = dto.Estado;
         }
 
-        private ComercioDetailDTO MapToDetailDTO(Comercio entity)
+        private ComercioDetailDto MapToDetailDTO(Comercio entity)
         {
-            return new ComercioDetailDTO
+            return new ComercioDetailDto
             {
                 IdComercio = entity.IdComercio,
                 Identificacion = entity.Identificacion,

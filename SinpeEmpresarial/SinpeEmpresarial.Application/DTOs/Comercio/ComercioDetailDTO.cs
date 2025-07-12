@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SinpeEmpresarial.Application.DTOs
+namespace SinpeEmpresarial.Application.Dtos
 {
-    public class ComercioDetailDTO
+    public class ComercioDetailDto
     {
         public int IdComercio { get; set; }
         [Display(Name = "Identificación")]

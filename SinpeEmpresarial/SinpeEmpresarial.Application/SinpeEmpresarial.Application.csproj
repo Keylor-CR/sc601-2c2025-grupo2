@@ -45,29 +45,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\Caja\EditCajaDto.cs" />
-    <Compile Include="DTOs\Caja\CreateCajaDto.cs" />
-    <Compile Include="DTOs\Caja\ListCajaDto.cs" />
-    <Compile Include="DTOs\Bitacora\BitacoraEventoDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioCreateDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioEditDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioDetailDTO.cs" />
-    <Compile Include="DTOs\Comercio\ComercioListDTO.cs" />
-    <Compile Include="DTOs\Sinpe\ListSinpeDto.cs" />
-    <Compile Include="DTOs\Sinpe\SinpeCreateDto.cs" />
-    <Compile Include="DTOs\Usuario\CreateUsuarioDto.cs" />
-    <Compile Include="DTOs\Usuario\EditUsuarioDto.cs" />
-    <Compile Include="DTOs\Usuario\ListUsuarioDto.cs" />
-    <Compile Include="DTOs\Usuario\UsuarioDetailDto.cs" />
+    <Compile Include="Dtos\Caja\EditCajaDto.cs" />
+    <Compile Include="Dtos\Caja\CreateCajaDto.cs" />
+    <Compile Include="Dtos\Caja\ListCajaDto.cs" />
+    <Compile Include="Dtos\Bitacora\BitacoraEventoDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioCreateDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioEditDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioDetailDto.cs" />
+    <Compile Include="Dtos\Comercio\ComercioListDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioCreateDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioEditDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioDetailDto.cs" />
+    <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioListDto.cs" />
+    <Compile Include="Dtos\Sinpe\ListSinpeDto.cs" />
+    <Compile Include="Dtos\Sinpe\SinpeCreateDto.cs" />
     <Compile Include="Interfaces\ICajaService.cs" />
     <Compile Include="Interfaces\IBitacoraService.cs" />
     <Compile Include="Interfaces\IComercioService.cs" />
+    <Compile Include="Interfaces\IConfiguracionComercioService.cs" />
     <Compile Include="Interfaces\ISinpeService.cs" />
     <Compile Include="Interfaces\IUsuarioService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CajaService.cs" />
     <Compile Include="Services\BitacoraService.cs" />
     <Compile Include="Services\ComercioService.cs" />
+    <Compile Include="Services\ConfiguracionComercioService.cs" />
     <Compile Include="Services\SinpeService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>

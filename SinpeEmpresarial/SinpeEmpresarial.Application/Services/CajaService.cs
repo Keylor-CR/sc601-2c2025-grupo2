@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SinpeEmpresarial.Application.DTOs.Bitacora;
-using SinpeEmpresarial.Application.DTOs.Caja;
+using SinpeEmpresarial.Application.Dtos.Bitacora;
+using SinpeEmpresarial.Application.Dtos.Caja;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
@@ -74,9 +74,9 @@ namespace SinpeEmpresarial.Application.Services
                 };
 
                 _repo.Add(caja);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Cajas",
+                    TablaDeEvento = "CAJAS",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nueva caja",
                     StackTrace = "",
@@ -85,9 +85,9 @@ namespace SinpeEmpresarial.Application.Services
                 });
             }
             catch(Exception ex) {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Cajas",
+                    TablaDeEvento = "CAJAS",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),
@@ -104,11 +104,10 @@ namespace SinpeEmpresarial.Application.Services
             try {
                 var caja = _repo.GetById(dto.IdCaja) ?? throw new Exception("Caja no encontrada");
                 var datosAnteriores = JsonConvert.SerializeObject(caja);
-                caja.Edit(dto.Nombre, dto.Descripcion, dto.TelefonoSINPE, dto.Estado);
                 _repo.Update(caja);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Comercios",
+                    TablaDeEvento = "CAJAS",
                     TipoDeEvento = "Editar",
                     DescripcionDeEvento = "Edición de caja",
                     StackTrace = "",
@@ -118,9 +117,9 @@ namespace SinpeEmpresarial.Application.Services
             }
             catch (Exception ex)
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDTO
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
-                    TablaDeEvento = "Cajas",
+                    TablaDeEvento = "CAJAS",
                     TipoDeEvento = "Error",
                     DescripcionDeEvento = ex.Message,
                     StackTrace = ex.ToString(),

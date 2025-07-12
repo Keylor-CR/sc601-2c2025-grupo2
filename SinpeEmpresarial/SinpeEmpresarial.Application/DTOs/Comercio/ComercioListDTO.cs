@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SinpeEmpresarial.Application.DTOs
+namespace SinpeEmpresarial.Application.Dtos
 {
-    public class ComercioListDTO
+    public class ComercioListDto
     {
         public int IdComercio { get; set; }
         [Display(Name = "Identificación")]
@@ -26,5 +21,6 @@ namespace SinpeEmpresarial.Application.DTOs
         public bool Estado { get; set; }
         [Display(Name = "Estado")]
         public string EstadoString { get; set; }
+        public bool TieneConfiguracion { get; set; }
     }
 }

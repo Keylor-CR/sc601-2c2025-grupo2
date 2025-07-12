@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SinpeEmpresarial.Application.DTOs.Sinpe
+namespace SinpeEmpresarial.Application.Dtos.Sinpe
 {
     public class SinpeCreateDto
     {

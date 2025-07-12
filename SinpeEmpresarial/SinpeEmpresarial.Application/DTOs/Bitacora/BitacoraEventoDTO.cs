@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SinpeEmpresarial.Application.DTOs.Bitacora
+namespace SinpeEmpresarial.Application.Dtos.Bitacora
 {
-    public class BitacoraEventoDTO
+    public class BitacoraEventoDto
     {
         [Display(Name="ID")]
         public int IdEvento { get; set; }
