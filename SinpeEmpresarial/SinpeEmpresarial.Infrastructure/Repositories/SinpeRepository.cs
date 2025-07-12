@@ -3,6 +3,7 @@ using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using SinpeEmpresarial.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 namespace SinpeEmpresarial.Infrastructure.Repositories
 {
@@ -32,5 +33,11 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
                 .Where(s => s.TelefonoDestino == telefono)
                 .ToList();
         }
+        public void Update(Sinpe sinpe)
+        {
+            _context.Entry(sinpe).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
     }
 }

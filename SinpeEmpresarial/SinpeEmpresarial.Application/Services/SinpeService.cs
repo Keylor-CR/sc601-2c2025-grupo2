@@ -30,6 +30,7 @@ namespace SinpeEmpresarial.Application.Services
                 .OrderByDescending(x => x.FechaDeRegistro) // Ordenado por fecha mas reciente segun requerimientos
                 .Select(x => new ListSinpeDto
                 {
+                    IdSinpe = x.IdSinpe,
                     TelefonoOrigen = x.TelefonoOrigen,
                     NombreOrigen = x.NombreOrigen,
                     TelefonoDestino = x.TelefonoDestino,
@@ -119,6 +120,16 @@ namespace SinpeEmpresarial.Application.Services
                     Estado = x.Estado
                 }).ToList();
         }
+        public void Sincronizar(int idSinpe)
+        {
+            var sinpe = _sinpeRepository.GetById(idSinpe);
+            if (sinpe == null) throw new Exception("SINPE no encontrado");
+            if (sinpe.Estado) return;
+
+            sinpe.Estado = true;
+            _sinpeRepository.Update(sinpe);
+        }
+
 
     }
 }

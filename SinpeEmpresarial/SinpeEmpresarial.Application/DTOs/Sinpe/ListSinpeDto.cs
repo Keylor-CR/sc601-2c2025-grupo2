@@ -4,6 +4,7 @@ namespace SinpeEmpresarial.Application.DTOs.Sinpe
 {
     public class ListSinpeDto
     {
+        public int IdSinpe { get; set; }
         public string TelefonoOrigen { get; set; }
         public string NombreOrigen { get; set; }
         public string TelefonoDestino { get; set; }

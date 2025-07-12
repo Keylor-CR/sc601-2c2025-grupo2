@@ -25,12 +25,28 @@
         @foreach (var sinpe in Model)
         {
             <tr>
+
                 <td>@sinpe.NombreOrigen (@sinpe.TelefonoOrigen)</td>
                 <td>@sinpe.NombreDestino (@sinpe.TelefonoDestino)</td>
                 <td>@sinpe.Monto.ToString("C")</td>
                 <td>@sinpe.Descripcion</td>
                 <td>@sinpe.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@(sinpe.Estado ? "Sincronizado" : "No sincronizado")</td>
+                <td>
+                    @if (!sinpe.Estado)
+                    {
+                        using (Html.BeginForm("Sincronizar", "Caja", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", sinpe.IdSinpe)
+                            @Html.Hidden("telefonoDestino", sinpe.TelefonoDestino)
+                            <button type="submit" class="btn btn-sm btn-success">Sincronizar</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-sm btn-success" disabled>Sincronizado</button>
+                    }
+
+                </td>
             </tr>
         }
     </tbody>

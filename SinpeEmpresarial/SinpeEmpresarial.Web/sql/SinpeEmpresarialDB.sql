@@ -1,3 +1,4 @@
+fix this shit so data relates
 DROP DATABASE IF EXISTS SinpeEmpresarialDB;
 
 CREATE DATABASE SinpeEmpresarialDB;
@@ -54,6 +55,20 @@ CREATE TABLE BITACORA_EVENTOS (
     DatosAnteriores VARCHAR(MAX) NULL,
     DatosPosteriores VARCHAR(MAX) NULL
 );
+  CREATE TABLE Usuarios (
+    IdUsuario INT PRIMARY KEY IDENTITY(1,1),
+    IdComercio INT NOT NULL,
+    IdNetUser UNIQUEIDENTIFIER NULL,
+    Nombres VARCHAR(100) NOT NULL,
+    PrimerApellido VARCHAR(100) NOT NULL,
+    SegundoApellido VARCHAR(100) NOT NULL,
+    Identificacion VARCHAR(10) NOT NULL,
+    CorreoElectronico VARCHAR(200) NOT NULL,
+    FechaDeRegistro DATETIME NOT NULL,
+    FechaDeModificacion DATETIME NULL,
+    Estado BIT NOT NULL,
+    FOREIGN KEY (IdComercio) REFERENCES Comercios(IdComercio)
+);
 
 INSERT INTO Comercios (Identificacion, TipoIdentificacion, Nombre, TipoDeComercio, Telefono, CorreoElectronico, Direccion, FechaDeRegistro, Estado)
 VALUES 
@@ -88,3 +103,16 @@ VALUES
 ('70007777', 'Cliente G', '88889876', 'Caja de herramientas', 10400.00, GETDATE(), 'Compra taladro', 1),
 ('70008888', 'Cliente H', '88889876', 'Caja de herramientas', 8450.00, GETDATE(), 'Compra tornillos', 1),
 ('70009999', 'Cliente I', '88889876', 'Caja de herramientas', 13200.00, GETDATE(), 'Compra combo herramientas', 1);
+
+INSERT INTO Usuarios 
+(IdComercio, IdNetUser, Nombres, PrimerApellido, SegundoApellido, Identificacion, CorreoElectronico, FechaDeRegistro, Estado)
+VALUES 
+(1, NEWID(), 'Carlos', 'Ramirez', 'Lopez', '101010101', 'carlos.ramirez@mail.com', GETDATE(), 1),
+
+(2, NEWID(), 'María', 'Fernandez', 'Jimenez', '202020202', 'maria.f@mail.com', GETDATE(), 2),
+
+(3, NEWID(), 'Luis', 'Mora', 'Sanchez', '303030303', 'luis.mora@mail.com', GETDATE(), 3),
+
+(1, NEWID(), 'Ana', 'Gonzalez', 'Vargas', '404040404', 'ana.gon@mail.com', GETDATE(), 4),
+
+(2, NEWID(), 'Jorge', 'Alpízar', 'Rodriguez', '505050505', 'jalpizar@mail.com', GETDATE(), 1);

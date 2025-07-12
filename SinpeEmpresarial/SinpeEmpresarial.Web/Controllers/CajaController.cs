@@ -85,5 +85,18 @@ public class CajaController : Controller
 
         return View(sinpes);
     }
+    [HttpPost]
+    public ActionResult Sincronizar(int id, string telefonoDestino)
+    {
+        try
+        {
+            _sinpeService.Sincronizar(id);
+            return RedirectToAction("VerSinpe", new { telefonoSINPE = telefonoDestino });
+        }
+        catch (Exception ex)
+        {
+            return new HttpStatusCodeResult(500, ex.Message);
+        }
+    }
 
 }

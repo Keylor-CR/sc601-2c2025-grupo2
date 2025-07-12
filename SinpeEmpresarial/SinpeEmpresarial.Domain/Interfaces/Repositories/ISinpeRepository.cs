@@ -7,4 +7,5 @@ public interface ISinpeRepository
     List<Sinpe> GetAll();
     void Add(Sinpe sinpe);
     List<Sinpe> GetByTelefonoDestino(string telefono);
+    void Update(Sinpe sinpe);
 }
