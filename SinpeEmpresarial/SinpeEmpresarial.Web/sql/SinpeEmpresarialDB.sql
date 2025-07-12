@@ -1,4 +1,3 @@
-fix this shit so data relates
 DROP DATABASE IF EXISTS SinpeEmpresarialDB;
 
 CREATE DATABASE SinpeEmpresarialDB;
@@ -55,19 +54,20 @@ CREATE TABLE BITACORA_EVENTOS (
     DatosAnteriores VARCHAR(MAX) NULL,
     DatosPosteriores VARCHAR(MAX) NULL
 );
-  CREATE TABLE Usuarios (
+
+CREATE TABLE Usuarios (
     IdUsuario INT PRIMARY KEY IDENTITY(1,1),
-    IdComercio INT NOT NULL,
-    IdNetUser UNIQUEIDENTIFIER NULL,
-    Nombres VARCHAR(100) NOT NULL,
-    PrimerApellido VARCHAR(100) NOT NULL,
-    SegundoApellido VARCHAR(100) NOT NULL,
-    Identificacion VARCHAR(10) NOT NULL,
-    CorreoElectronico VARCHAR(200) NOT NULL,
-    FechaDeRegistro DATETIME NOT NULL,
-    FechaDeModificacion DATETIME NULL,
-    Estado BIT NOT NULL,
-    FOREIGN KEY (IdComercio) REFERENCES Comercios(IdComercio)
+  IdComercio INT NOT NULL,
+  IdNetUser UNIQUEIDENTIFIER NULL,
+  Nombres VARCHAR(100) NOT NULL,
+  PrimerApellido VARCHAR(100) NOT NULL,
+  SegundoApellido VARCHAR(100) NOT NULL,
+  Identificacion VARCHAR(10) NOT NULL,
+  CorreoElectronico VARCHAR(200) NOT NULL,
+  FechaDeRegistro DATETIME NOT NULL,
+  FechaDeModificacion DATETIME NULL,
+  Estado BIT NOT NULL,
+  FOREIGN KEY (IdComercio) REFERENCES Comercios(IdComercio)
 );
 
 CREATE TABLE CONFIGURACIONES_COMERCIOS (
@@ -78,7 +78,7 @@ CREATE TABLE CONFIGURACIONES_COMERCIOS (
     FechaDeRegistro DATETIME NOT NULL,
     FechaDeModificacion DATETIME NULL,
     Estado BIT NOT NULL,
-	CONSTRAINT FK_Configuraciones_Comercio_Comercio FOREIGN KEY (IdComercio) REFERENCES COMERCIOS(IdComercio)
+    CONSTRAINT FK_Configuraciones_Comercio_Comercio FOREIGN KEY (IdComercio) REFERENCES COMERCIOS(IdComercio)
 );
 
 
@@ -91,25 +91,25 @@ VALUES
 
 INSERT INTO CAJAS (IdComercio, Nombre, Descripcion, TelefonoSINPE, FechaDeRegistro, Estado)
 VALUES 
-(1, 'Caja Principal', 'Caja central para atención general', '88881234', GETDATE(), 1),
+(1, 'Caja Principal', 'Caja central para atenciÃ³n general', '88881234', GETDATE(), 1),
 (2, 'Caja 1', 'Caja secundaria en Soda Mary', '88884567', GETDATE(), 1),
-(3, 'Caja de herramientas', 'Caja exclusiva para ventas de ferretería', '88889876', GETDATE(), 1);
+(3, 'Caja de herramientas', 'Caja exclusiva para ventas de ferreterÃ­a', '88889876', GETDATE(), 1);
 
--- Sinpe to Caja 1 (TelefonoDestinatario = '88881234')
+--Sinpe to Caja 1 (TelefonoDestinatario = '88881234')
 INSERT INTO SINPES (TelefonoOrigen, NombreOrigen, TelefonoDestino, NombreDestino, Monto, FechaDeRegistro, Descripcion, Estado)
 VALUES 
 ('70001111', 'Cliente A', '88881234', 'Caja Principal', 1500.00, GETDATE(), 'Pago desayuno', 1),
 ('70002222', 'Cliente B', '88881234', 'Caja Principal', 2750.00, GETDATE(), 'Pago almuerzo', 1),
 ('70003333', 'Cliente C', '88881234', 'Caja Principal', 3990.00, GETDATE(), 'Pago cena', 1);
 
--- Sinpe to Caja 2 (TelefonoDestinatario = '88884567')
+--Sinpe to Caja 2 (TelefonoDestinatario = '88884567')
 INSERT INTO SINPES (TelefonoOrigen, NombreOrigen, TelefonoDestino, NombreDestino, Monto, FechaDeRegistro, Descripcion, Estado)
 VALUES 
 ('70004444', 'Cliente D', '88884567', 'Caja 1', 1850.00, GETDATE(), 'Refresco', 1),
 ('70005555', 'Cliente E', '88884567', 'Caja 1', 3050.00, GETDATE(), 'Combo especial', 1),
 ('70006666', 'Cliente F', '88884567', 'Caja 1', 2200.00, GETDATE(), 'Postre', 1);
 
--- Sinpe to Caja 3 (TelefonoDestinatario = '88889876')
+--Sinpe to Caja 3 (TelefonoDestinatario = '88889876')
 INSERT INTO SINPES (TelefonoOrigen, NombreOrigen, TelefonoDestino, NombreDestino, Monto, FechaDeRegistro, Descripcion, Estado)
 VALUES 
 ('70007777', 'Cliente G', '88889876', 'Caja de herramientas', 10400.00, GETDATE(), 'Compra taladro', 1),
@@ -121,10 +121,10 @@ INSERT INTO Usuarios
 VALUES 
 (1, NEWID(), 'Carlos', 'Ramirez', 'Lopez', '101010101', 'carlos.ramirez@mail.com', GETDATE(), 1),
 
-(2, NEWID(), 'María', 'Fernandez', 'Jimenez', '202020202', 'maria.f@mail.com', GETDATE(), 2),
+(2, NEWID(), 'MarÃ­a', 'Fernandez', 'Jimenez', '202020202', 'maria.f@mail.com', GETDATE(), 2),
 
 (3, NEWID(), 'Luis', 'Mora', 'Sanchez', '303030303', 'luis.mora@mail.com', GETDATE(), 3),
 
 (1, NEWID(), 'Ana', 'Gonzalez', 'Vargas', '404040404', 'ana.gon@mail.com', GETDATE(), 4),
 
-(2, NEWID(), 'Jorge', 'Alpízar', 'Rodriguez', '505050505', 'jalpizar@mail.com', GETDATE(), 1);
+(2, NEWID(), 'Jorge', 'AlpÃ­zar', 'Rodriguez', '505050505', 'jalpizar@mail.com', GETDATE(), 1);
