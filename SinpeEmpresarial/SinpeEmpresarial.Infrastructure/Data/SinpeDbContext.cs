@@ -17,6 +17,7 @@ namespace SinpeEmpresarial.Infrastructure.Data
         public DbSet<Bitacora> BITACORA_EVENTOS { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<ConfiguracionComercio> CONFIGURACIONES_COMERCIOS { get; set; }
+        public DbSet<ReportesMensuales> ReportesMensuales { get; set; }
 
 
     }
