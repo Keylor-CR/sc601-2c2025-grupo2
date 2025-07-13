@@ -50,7 +50,7 @@
                 <th>Cantidad de Cajas</th>
                 <th>Monto Recaudado</th>
                 <th>Cantidad de SINPES</th>
-                <th>Monto Total de Comisión</th>
+                <th>Monto Total de Comision</th>
                 <th>Fecha del Reporte</th>
             </tr>
         </thead>
@@ -60,9 +60,9 @@
                 <tr>
                     <td>@item.NombreComercio</td>
                     <td>@item.CantidadDeCajas</td>
-                    <td>₡@item.MontoTotalRecaudado.ToString("N2")</td>
+                    <td>$@item.MontoTotalRecaudado.ToString("N2")</td>
                     <td>@item.CantidadDeSINPES</td>
-                    <td>₡@item.MontoTotalComision.ToString("N2")</td>
+                    <td>$@item.MontoTotalComision.ToString("N2")</td>
                     <td>@item.FechaDelReporte.ToString("dd/MM/yyyy")</td>
                 </tr>
             }
