@@ -57,6 +57,7 @@
     <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioEditDto.cs" />
     <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioDetailDto.cs" />
     <Compile Include="Dtos\ConfiguracionComercio\ConfiguracionComercioListDto.cs" />
+    <Compile Include="DTOs\ReportesMensuales\ListReportesMensualesDto.cs" />
     <Compile Include="Dtos\Sinpe\ListSinpeDto.cs" />
     <Compile Include="Dtos\Sinpe\SinpeCreateDto.cs" />
     <Compile Include="Dtos\Usuario\CreateUsuarioDto.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Interfaces\IBitacoraService.cs" />
     <Compile Include="Interfaces\IComercioService.cs" />
     <Compile Include="Interfaces\IConfiguracionComercioService.cs" />
+    <Compile Include="Interfaces\IReportesMensualesService.cs" />
     <Compile Include="Interfaces\ISinpeService.cs" />
     <Compile Include="Interfaces\IUsuarioService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Services\BitacoraService.cs" />
     <Compile Include="Services\ComercioService.cs" />
     <Compile Include="Services\ConfiguracionComercioService.cs" />
+    <Compile Include="Services\ReportesMensualesService.cs" />
     <Compile Include="Services\SinpeService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>

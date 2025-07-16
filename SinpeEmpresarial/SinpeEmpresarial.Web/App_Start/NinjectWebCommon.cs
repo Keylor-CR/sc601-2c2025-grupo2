@@ -90,6 +90,10 @@ namespace SinpeEmpresarial.Web.App_Start
             //Configuracion comercio
             kernel.Bind<IConfiguracionComercioRepository>().To<ConfiguracionComercioRepository>();
             kernel.Bind<IConfiguracionComercioService>().To<ConfiguracionComercioService>();
+
+            //Reportes mensuales
+            kernel.Bind<IReportesMensualesRepository>().To<ReportesMensualesRepository>();
+            kernel.Bind<IReportesMensualesService>().To<ReportesMensualesService>();
         }
     }
 }

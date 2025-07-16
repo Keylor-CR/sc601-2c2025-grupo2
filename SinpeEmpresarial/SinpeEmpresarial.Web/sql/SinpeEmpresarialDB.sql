@@ -81,6 +81,17 @@ CREATE TABLE CONFIGURACIONES_COMERCIOS (
     CONSTRAINT FK_Configuraciones_Comercio_Comercio FOREIGN KEY (IdComercio) REFERENCES COMERCIOS(IdComercio)
 );
 
+CREATE TABLE REPORTES_MENSUALES (
+    IdReporte INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    IdComercio INT NOT NULL,
+    CantidadDeCajas INT NOT NULL,
+    MontoTotalRecaudado DECIMAL(18,2) NOT NULL,
+    CantidadDeSINPES INT NOT NULL,
+    MontoTotalComision DECIMAL(18,2) NOT NULL,
+    FechaDelReporte DATETIME NOT NULL,
+    CONSTRAINT FK_ReportesMensuales_Comercio FOREIGN KEY (IdComercio) REFERENCES COMERCIOS(IdComercio)
+);
+
 
 INSERT INTO COMERCIOS (Identificacion, TipoIdentificacion, Nombre, TipoDeComercio, Telefono, CorreoElectronico, Direccion, FechaDeRegistro, Estado)
 VALUES 
@@ -116,7 +127,7 @@ VALUES
 ('70008888', 'Cliente H', '88889876', 'Caja de herramientas', 8450.00, GETDATE(), 'Compra tornillos', 1),
 ('70009999', 'Cliente I', '88889876', 'Caja de herramientas', 13200.00, GETDATE(), 'Compra combo herramientas', 1);
 
-INSERT INTO Usuarios 
+INSERT INTO Usuarios
 (IdComercio, IdNetUser, Nombres, PrimerApellido, SegundoApellido, Identificacion, CorreoElectronico, FechaDeRegistro, Estado)
 VALUES 
 (1, NEWID(), 'Carlos', 'Ramirez', 'Lopez', '101010101', 'carlos.ramirez@mail.com', GETDATE(), 1),
@@ -128,3 +139,9 @@ VALUES
 (1, NEWID(), 'Ana', 'Gonzalez', 'Vargas', '404040404', 'ana.gon@mail.com', GETDATE(), 4),
 
 (2, NEWID(), 'Jorge', 'Alpízar', 'Rodriguez', '505050505', 'jalpizar@mail.com', GETDATE(), 1);
+
+INSERT INTO CONFIGURACIONES_COMERCIOS (IdComercio, TipoConfiguracion, Comision, FechaDeRegistro, Estado)
+VALUES 
+(1, 1, 5, GETDATE(), 1),
+(2, 1, 3, GETDATE(), 1),
+(3, 1, 4, GETDATE(), 1);

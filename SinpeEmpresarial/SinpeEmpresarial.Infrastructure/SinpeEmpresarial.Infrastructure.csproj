@@ -57,6 +57,7 @@
     <Compile Include="Repositories\CajaRepository.cs" />
     <Compile Include="Repositories\ComercioRepository.cs" />
     <Compile Include="Repositories\ConfiguracionComercioRepository.cs" />
+    <Compile Include="Repositories\ReportesMensualesRepository.cs" />
     <Compile Include="Repositories\SinpeRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
   </ItemGroup>

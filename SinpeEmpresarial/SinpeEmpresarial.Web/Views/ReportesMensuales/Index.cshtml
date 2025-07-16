@@ -1,0 +1,78 @@
+@model List<SinpeEmpresarial.Application.DTOs.ReportesMensuales.ListReportesMensualesDto>
+
+@{
+    ViewBag.Title = "Reportes Mensuales";
+}
+
+<h2>Reportes Mensuales</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @ViewBag.Error
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a href="@Url.Action("Generar", "ReportesMensuales")" class="btn btn-primary">Generar Reportes</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del Comercio</th>
+                <th>Cantidad de Cajas</th>
+                <th>Monto Recaudado</th>
+                <th>Cantidad de SINPES</th>
+                <th>Monto Total de Comision</th>
+                <th>Fecha del Reporte</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.NombreComercio</td>
+                    <td>@item.CantidadDeCajas</td>
+                    <td>$@item.MontoTotalRecaudado.ToString("N2")</td>
+                    <td>@item.CantidadDeSINPES</td>
+                    <td>$@item.MontoTotalComision.ToString("N2")</td>
+                    <td>@item.FechaDelReporte.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        No hay reportes mensuales generados. Haz clic en "Generar Reportes" para crear los reportes del mes actual.
+    </div>
+}

@@ -46,6 +46,7 @@
     <Compile Include="Entities\Caja.cs" />
     <Compile Include="Entities\Comercio.cs" />
     <Compile Include="Entities\ConfiguracionComercio.cs" />
+    <Compile Include="Entities\ReportesMensuales.cs" />
     <Compile Include="Entities\Sinpe.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Enums\EstadoComercio.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Interfaces\Repositories\ICajaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IComercioRepository.cs" />
     <Compile Include="Interfaces\Repositories\IConfiguracionComercioRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IReportesMensualesRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISinpeRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
