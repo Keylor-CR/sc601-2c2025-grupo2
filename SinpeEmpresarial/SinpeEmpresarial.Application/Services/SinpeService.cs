@@ -59,7 +59,7 @@ namespace SinpeEmpresarial.Application.Services
                     throw new InvalidOperationException("La caja destino se encuentra inactiva y no puede recibir pagos SINPE.");
                 }
 
-                // Crear la entidad Sinpe segun los campos requeridos
+                
                 var sinpe = new Sinpe
                 {
                     TelefonoOrigen = dto.TelefonoOrigen,
@@ -68,21 +68,20 @@ namespace SinpeEmpresarial.Application.Services
                     NombreDestino = dto.NombreDestinatario,
                     Monto = dto.Monto,
                     Descripcion = dto.Descripcion,
-                    FechaDeRegistro = DateTime.Now, // Se asigna automaticamente segun requerimientos
-                    Estado = false // Estado por defecto: No sincronizado (false) segun requerimientos
+                    FechaDeRegistro = DateTime.Now, 
+                    Estado = false 
                 };
 
                 // Registrar el pago SINPE
                 _sinpeRepository.Add(sinpe);
 
-                // Registrar evento en bitacora segun requerimientos
                 _bitacoraService.RegisterEvento(new BitacoraEventoDto
                 {
                     TablaDeEvento = "SINPES",
                     TipoDeEvento = "Registrar",
                     DescripcionDeEvento = "Registro de nuevo pago SINPE",
                     StackTrace = "",
-                    DatosAnteriores = null, // Para registro nuevo no hay datos anteriores
+                    DatosAnteriores = null, 
                     DatosPosteriores = JsonConvert.SerializeObject(sinpe)
                 });
 
@@ -122,12 +121,39 @@ namespace SinpeEmpresarial.Application.Services
         }
         public void Sincronizar(int idSinpe)
         {
-            var sinpe = _sinpeRepository.GetById(idSinpe);
-            if (sinpe == null) throw new Exception("SINPE no encontrado");
-            if (sinpe.Estado) return;
+            try {
+                var sinpe = _sinpeRepository.GetById(idSinpe);
+                if (sinpe == null) throw new Exception("SINPE no encontrado");
+                if (sinpe.Estado) return;
 
-            sinpe.Estado = true;
-            _sinpeRepository.Update(sinpe);
+                sinpe.Estado = true;
+                _sinpeRepository.Update(sinpe);
+
+                //registrar evento en bitacora
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
+                {
+                    TablaDeEvento = "SINPES",
+                    TipoDeEvento = "Sincronizar",
+                    DescripcionDeEvento = "Pago SINPE sincronizado exitosamente",
+                    StackTrace = "",
+                    DatosAnteriores = JsonConvert.SerializeObject(sinpe),
+                    DatosPosteriores = null
+                });
+            }
+            catch(Exception ex)
+        {
+                _bitacoraService.RegisterEvento(new BitacoraEventoDto
+                {
+                    TablaDeEvento = "SINPES",
+                    TipoDeEvento = "Error",
+                    DescripcionDeEvento = ex.Message,
+                    StackTrace = ex.ToString(),
+                    DatosAnteriores = null,
+                    DatosPosteriores = null
+                });
+                throw;
+            }
+            
         }
 
 

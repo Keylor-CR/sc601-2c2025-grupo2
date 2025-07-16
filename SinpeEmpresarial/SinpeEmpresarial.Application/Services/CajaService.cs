@@ -109,7 +109,7 @@ namespace SinpeEmpresarial.Application.Services
                 {
                     TablaDeEvento = "CAJAS",
                     TipoDeEvento = "Editar",
-                    DescripcionDeEvento = "Edición de caja",
+                    DescripcionDeEvento = "Edicion de caja",
                     StackTrace = "",
                     DatosAnteriores = datosAnteriores,
                     DatosPosteriores = JsonConvert.SerializeObject(caja)
