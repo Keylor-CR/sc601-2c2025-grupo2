@@ -76,3 +76,19 @@
         No hay reportes mensuales generados. Haz clic en "Generar Reportes" para crear los reportes del mes actual.
     </div>
 }
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            // Asignar evento click a todos los botones de cerrar alertas
+            $('.alert .close').on('click', function() {
+                $(this).closest('.alert').fadeOut('fast');
+            });
+            
+            // Auto-ocultar alertas después de 5 segundos
+            setTimeout(function() {
+                $('.alert-success, .alert-danger').fadeOut('slow');
+            }, 5000);
+        });
+    </script>
+}
