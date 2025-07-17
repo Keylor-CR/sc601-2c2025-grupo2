@@ -1,10 +1,12 @@
 using SinpeEmpresarial.Application.DTOs.ReportesMensuales;
+using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace SinpeEmpresarial.Application.Services
 {
@@ -15,19 +17,22 @@ namespace SinpeEmpresarial.Application.Services
         private readonly ISinpeRepository _sinpeRepository;
         private readonly ICajaRepository _cajaRepository;
         private readonly IConfiguracionComercioRepository _configuracionComercioRepository;
+        private readonly IBitacoraService _bitacoraService;
 
         public ReportesMensualesService(
             IReportesMensualesRepository reportesMensualesRepository,
             IComercioRepository comercioRepository,
             ISinpeRepository sinpeRepository,
             ICajaRepository cajaRepository,
-            IConfiguracionComercioRepository configuracionComercioRepository)
+            IConfiguracionComercioRepository configuracionComercioRepository,
+            IBitacoraService bitacoraService)
         {
             _reportesMensualesRepository = reportesMensualesRepository;
             _comercioRepository = comercioRepository;
             _sinpeRepository = sinpeRepository;
             _cajaRepository = cajaRepository;
             _configuracionComercioRepository = configuracionComercioRepository;
+            _bitacoraService = bitacoraService;
         }
 
         public List<ListReportesMensualesDto> GetAllReportes()
@@ -78,6 +83,24 @@ namespace SinpeEmpresarial.Application.Services
                     reporteExistente.MontoTotalComision = montoTotalComision;
                     reporteExistente.FechaDelReporte = DateTime.Now;
                     _reportesMensualesRepository.Update(reporteExistente);
+                    
+                    _bitacoraService.RegisterEvento(new BitacoraEventoDto
+                    {
+                        TablaDeEvento = "REPORTES_MENSUALES",
+                        TipoDeEvento = "ACTUALIZACIÓN",
+                        DescripcionDeEvento = $"Actualización de reporte mensual para comercio {comercio.Nombre} (ID: {comercio.IdComercio})",
+                        DatosAnteriores = $"Comercio: {comercio.IdComercio}, Fecha: {DateTime.Now.ToString("yyyy-MM-dd")}",
+                        DatosPosteriores = JsonConvert.SerializeObject(new
+                        {
+                            IdReporte = reporteExistente.IdReporte,
+                            IdComercio = reporteExistente.IdComercio,
+                            CantidadDeCajas = cantidadDeCajas,
+                            MontoTotalRecaudado = montoTotalRecaudado,
+                            CantidadDeSINPES = cantidadDeSINPES,
+                            MontoTotalComision = montoTotalComision,
+                            FechaDelReporte = DateTime.Now
+                        })
+                    });
                 }
                 else
                 {
@@ -91,6 +114,23 @@ namespace SinpeEmpresarial.Application.Services
                         FechaDelReporte = DateTime.Now
                     };
                     _reportesMensualesRepository.Add(nuevoReporte);
+                    
+                    _bitacoraService.RegisterEvento(new BitacoraEventoDto
+                    {
+                        TablaDeEvento = "REPORTES_MENSUALES",
+                        TipoDeEvento = "CREACIÓN",
+                        DescripcionDeEvento = $"Creación de nuevo reporte mensual para comercio {comercio.Nombre} (ID: {comercio.IdComercio})",
+                        DatosAnteriores = "N/A",
+                        DatosPosteriores = JsonConvert.SerializeObject(new
+                        {
+                            IdComercio = comercio.IdComercio,
+                            CantidadDeCajas = cantidadDeCajas,
+                            MontoTotalRecaudado = montoTotalRecaudado,
+                            CantidadDeSINPES = cantidadDeSINPES,
+                            MontoTotalComision = montoTotalComision,
+                            FechaDelReporte = DateTime.Now
+                        })
+                    });
                 }
             }
         }
