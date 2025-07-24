@@ -36,29 +36,10 @@ namespace SinpeEmpresarial.Web.Controllers
             try
             {
                 _reportesMensualesService.GenerarReportesMensuales();
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "REPORTES_MENSUALES",
-                    TipoDeEvento = "GENERACIÓN",
-                    DescripcionDeEvento = "Generación de reportes mensuales iniciada por usuario",
-                    FechaDeEvento = DateTime.Now,
-                    DatosAnteriores = "N/A",
-                    DatosPosteriores = "Proceso de generación de reportes completado"
-                });
                 TempData["Success"] = "Reportes generados exitosamente";
             }
             catch (System.Exception ex)
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "REPORTES_MENSUALES",
-                    TipoDeEvento = "ERROR",
-                    DescripcionDeEvento = "Error al generar reportes mensuales",
-                    FechaDeEvento = DateTime.Now,
-                    StackTrace = ex.StackTrace,
-                    DatosAnteriores = "N/A",
-                    DatosPosteriores = ex.Message
-                });
                 TempData["Error"] = "Error al generar reportes: " + ex.Message;
             }
             return RedirectToAction("Index");
