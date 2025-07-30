@@ -1,5 +1,6 @@
 ﻿using SinpeEmpresarial.Application.Dtos;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Web.Filters;
 using System;
 using System.Web.Mvc;
 
@@ -70,18 +71,8 @@ namespace SinpeEmpresarial.Web.Controllers
                 LlenarViewBags();
                 return View(dto);
             }
-
-            try
-            {
-                _comercioService.RegisterComercio(dto);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                LlenarViewBags();
-                return View(dto);
-            }
+            _comercioService.RegisterComercio(dto);
+            return RedirectToAction("Index");
         }
 
         // GET: Comercio/Edit/5
@@ -115,19 +106,9 @@ namespace SinpeEmpresarial.Web.Controllers
                 LlenarViewBags(editDto.TipoDeComercio);
                 return View(editDto);
             }
-                
 
-            try
-            {
-                _comercioService.EditComercio(editDto);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                LlenarViewBags(editDto.TipoDeComercio);
-                return View(editDto);
-            }
+            _comercioService.EditComercio(editDto);
+            return RedirectToAction("Index");
         }
     }
 }

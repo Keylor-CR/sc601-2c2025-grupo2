@@ -50,41 +50,24 @@ namespace SinpeEmpresarial.Application.Services
 
         public void RegisterComercio(ComercioCreateDto dto)
         {
-            try
-            {
-                if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
-                    throw new Exception("Ya existe un Comercio con esta identificación");
+            if (_comercioRepository.GetByIdentificacion(dto.Identificacion) != null)
+                throw new Exception("Ya existe un Comercio con esta identificación");
 
-                var entity = MapFromCreateDTO(dto);
-                _comercioRepository.Add(entity);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "COMERCIOS",
-                    TipoDeEvento = "Registrar",
-                    DescripcionDeEvento = "Registro de nuevo comercio",
-                    StackTrace = "",
-                    DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(entity)
-                });
-            }
-            catch (Exception ex)
+            var entity = MapFromCreateDTO(dto);
+            _comercioRepository.Add(entity);
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "COMERCIOS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
-                throw; 
-            }
+                TablaDeEvento = "COMERCIOS",
+                TipoDeEvento = "Registrar",
+                DescripcionDeEvento = "Registro de nuevo comercio",
+                StackTrace = "",
+                DatosAnteriores = null,
+                DatosPosteriores = JsonConvert.SerializeObject(entity)
+            });
         }
+
         public void EditComercio(ComercioEditDto dto)
         {
-            try
-            {
                 var entity = _comercioRepository.GetById(dto.IdComercio);
                 if (entity == null)
                     throw new Exception("Comercio no encontrado");
@@ -102,20 +85,6 @@ namespace SinpeEmpresarial.Application.Services
                     DatosAnteriores = datosAnteriores,
                     DatosPosteriores = JsonConvert.SerializeObject(entity)
                 });
-            }
-            catch (Exception ex)
-            {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "COMERCIOS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
-                throw;
-            }
         }
 
 

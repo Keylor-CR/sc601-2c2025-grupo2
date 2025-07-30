@@ -33,15 +33,8 @@ namespace SinpeEmpresarial.Web.Controllers
 
         public ActionResult Generar()
         {
-            try
-            {
-                _reportesMensualesService.GenerarReportesMensuales();
-                TempData["Success"] = "Reportes generados exitosamente";
-            }
-            catch (System.Exception ex)
-            {
-                TempData["Error"] = "Error al generar reportes: " + ex.Message;
-            }
+            _reportesMensualesService.GenerarReportesMensuales();
+            TempData["Success"] = "Reportes generados exitosamente";
             return RedirectToAction("Index");
         }
     }

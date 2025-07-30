@@ -56,79 +56,49 @@ namespace SinpeEmpresarial.Application.Services
 
         public void AddCaja(CreateCajaDto dto)
         {
-            try {
-                if (_repo.GetByTelefono(dto.TelefonoSINPE) != null)
-                    throw new Exception("Ya existe una caja activa con ese telefono.");
+            if (_repo.GetByTelefono(dto.TelefonoSINPE) != null)
+                throw new Exception("Ya existe una caja activa con ese telefono.");
 
-                if (_repo.GetByNombre(dto.Nombre, dto.IdComercio) != null)
-                    throw new Exception("Ya existe una caja con ese nombre en el comercio.");
+            if (_repo.GetByNombre(dto.Nombre, dto.IdComercio) != null)
+                throw new Exception("Ya existe una caja con ese nombre en el comercio.");
 
-                var caja = new Caja
-                {
-                    IdComercio = dto.IdComercio,
-                    Nombre = dto.Nombre,
-                    Descripcion = dto.Descripcion,
-                    TelefonoSINPE = dto.TelefonoSINPE,
-                    FechaDeRegistro = DateTime.Now,
-                    Estado = true
-                };
+            var caja = new Caja
+            {
+                IdComercio = dto.IdComercio,
+                Nombre = dto.Nombre,
+                Descripcion = dto.Descripcion,
+                TelefonoSINPE = dto.TelefonoSINPE,
+                FechaDeRegistro = DateTime.Now,
+                Estado = true
+            };
 
-                _repo.Add(caja);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CAJAS",
-                    TipoDeEvento = "Registrar",
-                    DescripcionDeEvento = "Registro de nueva caja",
-                    StackTrace = "",
-                    DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(caja)
-                });
-            }
-            catch(Exception ex) {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CAJAS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(dto)
-                });
-                throw;
-            }
-            
+            _repo.Add(caja);
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
+            {
+                TablaDeEvento = "CAJAS",
+                TipoDeEvento = "Registrar",
+                DescripcionDeEvento = "Registro de nueva caja",
+                StackTrace = "",
+                DatosAnteriores = null,
+                DatosPosteriores = JsonConvert.SerializeObject(caja)
+            });
+
         }
 
         public void EditCaja(EditCajaDto dto)
         {
-            try {
-                var caja = _repo.GetById(dto.IdCaja) ?? throw new Exception("Caja no encontrada");
-                var datosAnteriores = JsonConvert.SerializeObject(caja);
-                _repo.Update(caja);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CAJAS",
-                    TipoDeEvento = "Editar",
-                    DescripcionDeEvento = "Edicion de caja",
-                    StackTrace = "",
-                    DatosAnteriores = datosAnteriores,
-                    DatosPosteriores = JsonConvert.SerializeObject(caja)
-                });
-            }
-            catch (Exception ex)
+            var caja = _repo.GetById(dto.IdCaja) ?? throw new Exception("Caja no encontrada");
+            var datosAnteriores = JsonConvert.SerializeObject(caja);
+            _repo.Update(caja);
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CAJAS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(dto)
-                });
-                throw;
-            }
-
+                TablaDeEvento = "CAJAS",
+                TipoDeEvento = "Editar",
+                DescripcionDeEvento = "Edicion de caja",
+                StackTrace = "",
+                DatosAnteriores = datosAnteriores,
+                DatosPosteriores = JsonConvert.SerializeObject(caja)
+            });
         }
     }
 }

@@ -44,41 +44,24 @@ namespace SinpeEmpresarial.Application.Services
         }
         public void RegisterConfiguracionComercio(ConfiguracionComercioCreateDto Dto)
         {
-            try
-            {
-                if (_repository.GetByComercioId(Dto.IdComercio) != null)
-                    throw new Exception("Ya existe una configuración para este comercio.");
+            
+            if (_repository.GetByComercioId(Dto.IdComercio) != null)
+                throw new Exception("Ya existe una configuración para este comercio.");
 
-                var entity = MapFromCreateDTO(Dto);
-                _repository.Add(entity);
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CONFIGURACIONES_COMERCIOS",
-                    TipoDeEvento = "Registrar",
-                    DescripcionDeEvento = "Registro de nueva configuracion de comercio.",
-                    StackTrace = "",
-                    DatosAnteriores = null,
-                    DatosPosteriores = JsonConvert.SerializeObject(entity)
-                });
-            }catch (Exception ex)
+            var entity = MapFromCreateDTO(Dto);
+            _repository.Add(entity);
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
             {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CONFIGURACIONES_COMERCIOS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
-                throw;
-            }
-
+                TablaDeEvento = "CONFIGURACIONES_COMERCIOS",
+                TipoDeEvento = "Registrar",
+                DescripcionDeEvento = "Registro de nueva configuracion de comercio.",
+                StackTrace = "",
+                DatosAnteriores = null,
+                DatosPosteriores = JsonConvert.SerializeObject(entity)
+            });          
         }
         public void EditConfiguracionComercio(ConfiguracionComercioEditDto Dto)
         {
-            try
-            {
                 var entity = _repository.GetById(Dto.IdConfiguracion);
                 if (entity == null)
                     throw new Exception("Configuración de comercio no encontrada.");
@@ -96,20 +79,6 @@ namespace SinpeEmpresarial.Application.Services
                     DatosAnteriores = datosAnteriores,
                     DatosPosteriores = JsonConvert.SerializeObject(entity)
                 });
-            }
-            catch (Exception ex)
-            {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "CONFIGURACIONES_COMERCIOS",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
-                throw;
-            }
         }
         private ConfiguracionComercio MapFromCreateDTO(ConfiguracionComercioCreateDto Dto)
         {

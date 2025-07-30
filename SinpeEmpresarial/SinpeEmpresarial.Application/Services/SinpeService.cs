@@ -44,64 +44,46 @@ namespace SinpeEmpresarial.Application.Services
 
         public ResponseModel RegisterSinpe(SinpeCreateDto dto)
         {
-            try
+            // Validacion requerida: verificar que el telefono destino existe y la caja esta activa
+            var cajaDestino = _cajaRepository.GetByTelefono(dto.TelefonoDestinatario);
+
+            if (cajaDestino == null)
             {
-                // Validacion requerida: verificar que el telefono destino existe y la caja esta activa
-                var cajaDestino = _cajaRepository.GetByTelefono(dto.TelefonoDestinatario);
+                throw new InvalidOperationException("No existe una caja registrada con el numero de telefono destinatario proporcionado.");
+            }
 
-                if (cajaDestino == null)
-                {
-                    throw new InvalidOperationException("No existe una caja registrada con el numero de telefono destinatario proporcionado.");
-                }
-
-                if (!cajaDestino.Estado)
-                {
-                    throw new InvalidOperationException("La caja destino se encuentra inactiva y no puede recibir pagos SINPE.");
-                }
+            if (!cajaDestino.Estado)
+            {
+                throw new InvalidOperationException("La caja destino se encuentra inactiva y no puede recibir pagos SINPE.");
+            }
 
                 
-                var sinpe = new Sinpe
-                {
-                    TelefonoOrigen = dto.TelefonoOrigen,
-                    NombreOrigen = dto.NombreOrigen,
-                    TelefonoDestino = dto.TelefonoDestinatario,
-                    NombreDestino = dto.NombreDestinatario,
-                    Monto = dto.Monto,
-                    Descripcion = dto.Descripcion,
-                    FechaDeRegistro = DateTime.Now, 
-                    Estado = false 
-                };
-
-                // Registrar el pago SINPE
-                _sinpeRepository.Add(sinpe);
-
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "SINPES",
-                    TipoDeEvento = "Registrar",
-                    DescripcionDeEvento = "Registro de nuevo pago SINPE",
-                    StackTrace = "",
-                    DatosAnteriores = null, 
-                    DatosPosteriores = JsonConvert.SerializeObject(sinpe)
-                });
-
-                return new ResponseModel(true, "El pago SINPE ha sido registrado exitosamente.");
-            }
-            catch (Exception ex)
+            var sinpe = new Sinpe
             {
-                // Registrar error en bitacora segun requerimientos
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "SINPES",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
+                TelefonoOrigen = dto.TelefonoOrigen,
+                NombreOrigen = dto.NombreOrigen,
+                TelefonoDestino = dto.TelefonoDestinatario,
+                NombreDestino = dto.NombreDestinatario,
+                Monto = dto.Monto,
+                Descripcion = dto.Descripcion,
+                FechaDeRegistro = DateTime.Now, 
+                Estado = false 
+            };
 
-                return new ResponseModel(false, ex.Message);
-            }
+            // Registrar el pago SINPE
+            _sinpeRepository.Add(sinpe);
+
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
+            {
+                TablaDeEvento = "SINPES",
+                TipoDeEvento = "Registrar",
+                DescripcionDeEvento = "Registro de nuevo pago SINPE",
+                StackTrace = "",
+                DatosAnteriores = null, 
+                DatosPosteriores = JsonConvert.SerializeObject(sinpe)
+            });
+
+            return new ResponseModel(true, "El pago SINPE ha sido registrado exitosamente.");
 
         }
         public List<ListSinpeDto> GetLast(int count)
@@ -121,42 +103,25 @@ namespace SinpeEmpresarial.Application.Services
         }
         public void Sincronizar(int idSinpe)
         {
-            try {
-                var sinpe = _sinpeRepository.GetById(idSinpe);
-                if (sinpe == null) throw new Exception("SINPE no encontrado");
-                if (sinpe.Estado) return;
+            var sinpe = _sinpeRepository.GetById(idSinpe);
+            if (sinpe == null) throw new Exception("SINPE no encontrado");
+            if (sinpe.Estado) return;
 
-                sinpe.Estado = true;
-                _sinpeRepository.Update(sinpe);
+            sinpe.Estado = true;
+            _sinpeRepository.Update(sinpe);
 
-                //registrar evento en bitacora
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "SINPES",
-                    TipoDeEvento = "Sincronizar",
-                    DescripcionDeEvento = "Pago SINPE sincronizado exitosamente",
-                    StackTrace = "",
-                    DatosAnteriores = JsonConvert.SerializeObject(sinpe),
-                    DatosPosteriores = null
-                });
-            }
-            catch(Exception ex)
-        {
-                _bitacoraService.RegisterEvento(new BitacoraEventoDto
-                {
-                    TablaDeEvento = "SINPES",
-                    TipoDeEvento = "Error",
-                    DescripcionDeEvento = ex.Message,
-                    StackTrace = ex.ToString(),
-                    DatosAnteriores = null,
-                    DatosPosteriores = null
-                });
-                throw;
-            }
+            //registrar evento en bitacora
+            _bitacoraService.RegisterEvento(new BitacoraEventoDto
+            {
+                TablaDeEvento = "SINPES",
+                TipoDeEvento = "Sincronizar",
+                DescripcionDeEvento = "Pago SINPE sincronizado exitosamente",
+                StackTrace = "",
+                DatosAnteriores = JsonConvert.SerializeObject(sinpe),
+                DatosPosteriores = null
+            });
             
         }
-
-
     }
 }
 

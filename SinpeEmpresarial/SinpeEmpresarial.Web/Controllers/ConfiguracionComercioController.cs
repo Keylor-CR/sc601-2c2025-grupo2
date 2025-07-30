@@ -67,17 +67,8 @@ namespace SinpeEmpresarial.Web.Controllers
                 return View(dto);
             }
 
-            try
-            {
-                _configuracioncomercioService.RegisterConfiguracionComercio(dto);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                LlenarViewBags();
-                return View(dto);
-            }
+            _configuracioncomercioService.RegisterConfiguracionComercio(dto);
+            return RedirectToAction("Index");
         }
         // GET: ConfiguracionComercio/Edit
         public ActionResult Edit(int idComercio)
@@ -111,18 +102,8 @@ namespace SinpeEmpresarial.Web.Controllers
                 LlenarViewBags(editDto.TipoConfiguracion);
                 return View(editDto);
             }
-
-            try
-            {
-                _configuracioncomercioService.EditConfiguracionComercio(editDto);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                LlenarViewBags(editDto.TipoConfiguracion);
-                return View(editDto);
-            }
+            _configuracioncomercioService.EditConfiguracionComercio(editDto);
+            return RedirectToAction("Index");
         }
     }
 }

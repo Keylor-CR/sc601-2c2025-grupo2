@@ -19,14 +19,12 @@ public class CajaController : Controller
         _comercioService = comercioService;
     }
 
-    // ✅ All Cajas
     public ActionResult Index()
     {
         var allCajas = _cajaService.GetAll();
         return View(allCajas);
     }
 
-    // ✅ Cajas by Comercio
     public ActionResult PorComercio(int comercioId)
     {
         var cajas = _cajaService.GetCajasByComercio(comercioId);
@@ -43,16 +41,8 @@ public class CajaController : Controller
     [HttpPost]
     public ActionResult Create(CreateCajaDto dto)
     {
-        try
-        {
-            _cajaService.AddCaja(dto);
-            return RedirectToAction("PorComercio", new { comercioId = dto.IdComercio });
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError("", ex.Message);
-            return View(dto);
-        }
+        _cajaService.AddCaja(dto);
+        return RedirectToAction("PorComercio", new { comercioId = dto.IdComercio });
     }
 
     public ActionResult Edit(int id)
@@ -88,15 +78,7 @@ public class CajaController : Controller
     [HttpPost]
     public ActionResult Sincronizar(int id, string telefonoDestino)
     {
-        try
-        {
-            _sinpeService.Sincronizar(id);
-            return RedirectToAction("VerSinpe", new { telefonoSINPE = telefonoDestino });
-        }
-        catch (Exception ex)
-        {
-            return new HttpStatusCodeResult(500, ex.Message);
-        }
+        _sinpeService.Sincronizar(id);
+        return RedirectToAction("VerSinpe", new { telefonoSINPE = telefonoDestino });
     }
-
 }

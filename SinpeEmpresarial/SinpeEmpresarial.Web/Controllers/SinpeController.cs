@@ -30,27 +30,10 @@ namespace SinpeEmpresarial.Web.Controllers
             {
                 return View(model);
             }
-
-            try
-            {
-                var result = _sinpeService.RegisterSinpe(model);
-                
-                if (result.Success)
-                {
-                    TempData["SuccessMessage"] = result.Message;
-                    return RedirectToAction("Success");
-                }
-                else
-                {
-                    ModelState.AddModelError("", result.Message);
-                    return View(model);
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Ocurrio un error al procesar el registro SINPE: " + ex.Message);
-                return View(model);
-            }
+            var result = _sinpeService.RegisterSinpe(model);
+            
+            TempData["SuccessMessage"] = result.Message;
+            return RedirectToAction("Success");
         }
 
         // GET: Sinpe/Success
