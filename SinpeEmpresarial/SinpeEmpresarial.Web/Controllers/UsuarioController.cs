@@ -32,18 +32,8 @@ public class UsuarioController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Create(CreateUsuarioDto dto)
     {
-        try
-        {
-            _usuarioService.Register(dto);
-            return RedirectToAction("Index");
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError("", ex.Message);
-            var comercios = _comercioService.GetAllComercios();
-            ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre");
-            return View(dto);
-        }
+        _usuarioService.Register(dto);
+        return RedirectToAction("Index");
     }
 
     public ActionResult Edit(int id)
@@ -73,17 +63,7 @@ public class UsuarioController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Edit(EditUsuarioDto dto)
     {
-        try
-        {
-            _usuarioService.Edit(dto);
-            return RedirectToAction("Index");
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError("", ex.Message);
-            var comercios = _comercioService.GetAllComercios();
-            ViewBag.Comercios = new SelectList(comercios, "IdComercio", "Nombre", dto.IdComercio);
-            return View(dto);
-        }
+        _usuarioService.Edit(dto);
+        return RedirectToAction("Index");
     }
 }

@@ -59,82 +59,51 @@ public class UsuarioService : IUsuarioService
 
     public void Register(CreateUsuarioDto dto)
     {
-        try {
-            if (_repo.GetByIdentificacion(dto.Identificacion) != null)
-                throw new Exception("Ya existe un usuario con esa identificación");
+        if (_repo.GetByIdentificacion(dto.Identificacion) != null)
+            throw new Exception("Ya existe un usuario con esa identificación");
 
-            var u = new Usuario
-            {
-                IdComercio = dto.IdComercio,
-                Nombres = dto.Nombres,
-                PrimerApellido = dto.PrimerApellido,
-                SegundoApellido = dto.SegundoApellido,
-                Identificacion = dto.Identificacion,
-                CorreoElectronico = dto.CorreoElectronico,
-                FechaDeRegistro = DateTime.Now,
-                Estado = true
-            };
-
-            _repo.Add(u);
-
-            _bitacoraService.RegisterEvento(new BitacoraEventoDto
-            {
-                TablaDeEvento = "USUARIOS",
-                TipoDeEvento = "Crear",
-                DescripcionDeEvento = "Creacion de usuario",
-                StackTrace = "",
-                DatosAnteriores = null,
-                DatosPosteriores = JsonConvert.SerializeObject(u)
-            });
-        }
-        catch (Exception ex)
+        var u = new Usuario
         {
-            _bitacoraService.RegisterEvento(new BitacoraEventoDto
-            {
-                TablaDeEvento = "USUARIOS",
-                TipoDeEvento = "Error",
-                DescripcionDeEvento = ex.Message,
-                StackTrace = ex.ToString(),
-                DatosAnteriores = null,
-                DatosPosteriores = null
-            });
-            throw;
-        }
+            IdComercio = dto.IdComercio,
+            Nombres = dto.Nombres,
+            PrimerApellido = dto.PrimerApellido,
+            SegundoApellido = dto.SegundoApellido,
+            Identificacion = dto.Identificacion,
+            CorreoElectronico = dto.CorreoElectronico,
+            FechaDeRegistro = DateTime.Now,
+            Estado = true
+        };
+
+        _repo.Add(u);
+
+        _bitacoraService.RegisterEvento(new BitacoraEventoDto
+        {
+            TablaDeEvento = "USUARIOS",
+            TipoDeEvento = "Crear",
+            DescripcionDeEvento = "Creacion de usuario",
+            StackTrace = "",
+            DatosAnteriores = null,
+            DatosPosteriores = JsonConvert.SerializeObject(u)
+        });
 
     }
 
     public void Edit(EditUsuarioDto dto)
     {
-        try {
-            var u = _repo.GetById(dto.IdUsuario) ?? throw new Exception("Usuario no encontrado");
-            var usuarioExistente = u;
-            u.Edit(dto.Nombres, dto.PrimerApellido, dto.SegundoApellido, dto.Identificacion, dto.CorreoElectronico, dto.Estado);
-            _repo.Update(u);
+        var u = _repo.GetById(dto.IdUsuario) ?? throw new Exception("Usuario no encontrado");
+        var usuarioExistente = u;
+        u.Edit(dto.Nombres, dto.PrimerApellido, dto.SegundoApellido, dto.Identificacion, dto.CorreoElectronico, dto.Estado);
+        _repo.Update(u);
 
-            //registrar evento en bitacora
-            _bitacoraService.RegisterEvento(new BitacoraEventoDto
-            {
-                TablaDeEvento = "USUARIOS",
-                TipoDeEvento = "Editar",
-                DescripcionDeEvento = "Edicion de usuario",
-                StackTrace = "",
-                DatosAnteriores = JsonConvert.SerializeObject(usuarioExistente),
-                DatosPosteriores = JsonConvert.SerializeObject(u)
-            });
-        }
-        catch (Exception ex)
+        //registrar evento en bitacora
+        _bitacoraService.RegisterEvento(new BitacoraEventoDto
         {
-            _bitacoraService.RegisterEvento(new BitacoraEventoDto
-            {
-                TablaDeEvento = "USUARIOS",
-                TipoDeEvento = "Error",
-                DescripcionDeEvento = ex.Message,
-                StackTrace = ex.ToString(),
-                DatosAnteriores = null,
-                DatosPosteriores = null
-            });
-            throw;
-        }
-       
+            TablaDeEvento = "USUARIOS",
+            TipoDeEvento = "Editar",
+            DescripcionDeEvento = "Edicion de usuario",
+            StackTrace = "",
+            DatosAnteriores = JsonConvert.SerializeObject(usuarioExistente),
+            DatosPosteriores = JsonConvert.SerializeObject(u)
+        });
     }
 }
