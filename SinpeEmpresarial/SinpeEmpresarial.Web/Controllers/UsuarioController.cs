@@ -1,9 +1,12 @@
-﻿using SinpeEmpresarial.Application.DTOs.Usuario;
+﻿using Microsoft.AspNet.Identity;
+using SinpeEmpresarial.Application.DTOs.Usuario;
 using SinpeEmpresarial.Application.Interfaces;
 using SinpeEmpresarial.Application.Services;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
+[Authorize(Roles = "Administrador")]
 public class UsuarioController : Controller
 {
     private readonly IUsuarioService _usuarioService;

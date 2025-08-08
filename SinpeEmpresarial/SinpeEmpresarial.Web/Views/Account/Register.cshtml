@@ -1,0 +1,42 @@
+﻿@model SinpeEmpresarial.Web.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<h2>Registrarse</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Rol")
+        @Html.DropDownListFor(m => m.Rol, new SelectList(new[] {
+            new { Value = "Administrador", Text = "Administrador" },
+            new { Value = "Cajero", Text = "Cajero" }
+        }, "Value", "Text"), "Seleccione un rol", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Rol)
+    </div>
+
+    <button type="submit" class="btn btn-success">Registrar</button>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}

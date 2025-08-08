@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace SinpeEmpresarial.Web.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class ConfiguracionComercioController : Controller
     {
 

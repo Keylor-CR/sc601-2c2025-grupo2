@@ -3,36 +3,73 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - SINPE Empresarial</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
             @Html.ActionLink("SINPE Empresarial", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Registrar SINPE", "Create", "Sinpe", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Comercios", "Index", "Comercio", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Cajas", "Index", "Caja", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Bitacora", "Index", "Bitacora", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Reportes Mensuales", "Index", "ReportesMensuales", new { area = "" }, new { @class = "nav-link" })</li>
 
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Registrar SINPE", "Create", "Sinpe", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Comercios", "Index", "Comercio", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Bitácora", "Index", "Bitacora", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Configuración", "Index", "ConfiguracionComercio", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Reportes Mensuales", "Index", "ReportesMensuales", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Reserva de Liquidez", "Index", "ReservaLiquidez", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Cajas", "Index", "Caja", null, new { @class = "nav-link" })</li>
+                        }
+                        else if (User.IsInRole("Cajero"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Cajas", "Index", "Caja", null, new { @class = "nav-link" })</li>
+                        }
+                    }
+                </ul>
+
+                <ul class="navbar-nav">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <span class="navbar-text text-light me-2">
+                                <i class="bi bi-person-circle"></i> @User.Identity.Name
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Cerrar sesión", "Logout", "Account", null, new { @class = "nav-link text-danger" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Iniciar sesión", "Login", "Account", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Registrarse", "Register", "Account", null, new { @class = "nav-link" })
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+
+    <div class="container body-content mt-4">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="text-center">
+            <p class="text-muted">&copy; @DateTime.Now.Year - SINPE Empresarial</p>
         </footer>
     </div>
 

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace SinpeEmpresarial.Web.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class SinpeController : Controller
     {
         private readonly ISinpeService _sinpeService;

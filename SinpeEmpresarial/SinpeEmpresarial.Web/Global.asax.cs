@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using SinpeEmpresarial.Web.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +19,27 @@ namespace SinpeEmpresarial.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CreateRolesAndUsers();
+        }
+        private void CreateRolesAndUsers()
+        {
+            var context = new ApplicationDbContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            // Crear rol Administrador si no existe
+            if (!roleManager.RoleExists("Administrador"))
+            {
+                var role = new IdentityRole("Administrador");
+                roleManager.Create(role);
+            }
+
+            // Crear rol Cajero si no existe
+            if (!roleManager.RoleExists("Cajero"))
+            {
+                var role = new IdentityRole("Cajero");
+                roleManager.Create(role);
+            }
         }
     }
+
 }

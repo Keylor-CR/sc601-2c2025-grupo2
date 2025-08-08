@@ -56,25 +56,31 @@
     </tbody>
 </table>
 
-<h3>Últimos 5 eventos en Bitácora</h3>
-<table class="table table-bordered table-sm">
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Tabla</th>
-            <th>Evento</th>
-            <th>Descripción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var b in bitacoras)
-        {
-            <tr>
-                <td>@b.FechaDeEvento.ToString("g")</td>
-                <td>@b.TablaDeEvento</td>
-                <td>@b.TipoDeEvento</td>
-                <td>@b.DescripcionDeEvento</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Administrador"))
+    {
+        <h3>Últimos 5 eventos en Bitácora</h3>
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tabla</th>
+                    <th>Evento</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in bitacoras)
+{
+                    <tr>
+                        <td>@b.FechaDeEvento.ToString("g")</td>
+                        <td>@b.TablaDeEvento</td>
+                        <td>@b.TipoDeEvento</td>
+                        <td>@b.DescripcionDeEvento</td>
+                    </tr>
+}
+            </tbody>
+        </table>
+    }
+}

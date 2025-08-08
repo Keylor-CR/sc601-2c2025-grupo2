@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SinpeEmpresarial.Web.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class ComercioController : Controller
     {
         private readonly IComercioService _comercioService;

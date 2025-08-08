@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 
-
+[Authorize(Roles = "Cajero, Administrador")]
 public class CajaController : Controller
 {
     private readonly ICajaService _cajaService;
@@ -38,6 +38,7 @@ public class CajaController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public ActionResult Create(CreateCajaDto dto)
     {
@@ -57,7 +58,7 @@ public class CajaController : Controller
             Estado = caja.Estado
         });
     }
-
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public ActionResult Edit(EditCajaDto dto)
     {
