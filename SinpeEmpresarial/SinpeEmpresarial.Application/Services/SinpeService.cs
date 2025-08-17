@@ -101,11 +101,11 @@ namespace SinpeEmpresarial.Application.Services
                     Estado = x.Estado
                 }).ToList();
         }
-        public void Sincronizar(int idSinpe)
+        public ResponseModel Sincronizar(int idSinpe)
         {
             var sinpe = _sinpeRepository.GetById(idSinpe);
             if (sinpe == null) throw new Exception("SINPE no encontrado");
-            if (sinpe.Estado) return;
+            if (sinpe.Estado) return new ResponseModel(false, "El pago SINPE ya ha sido sincronizado previamente.");
 
             sinpe.Estado = true;
             _sinpeRepository.Update(sinpe);
@@ -120,7 +120,8 @@ namespace SinpeEmpresarial.Application.Services
                 DatosAnteriores = JsonConvert.SerializeObject(sinpe),
                 DatosPosteriores = null
             });
-            
+            return new ResponseModel(true, "El pago SINPE ha sido sincronizado exitosamente.");
+
         }
     }
 }

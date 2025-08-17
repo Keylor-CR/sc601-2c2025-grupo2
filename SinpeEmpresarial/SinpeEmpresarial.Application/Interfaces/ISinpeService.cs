@@ -9,6 +9,6 @@ namespace SinpeEmpresarial.Application.Interfaces
         List<ListSinpeDto> GetByCajaTelefono(string telefonoDestino);
         ResponseModel RegisterSinpe(SinpeCreateDto dto);
         List<ListSinpeDto> GetLast(int count);
-        void Sincronizar(int idSinpe);
+        ResponseModel Sincronizar(int idSinpe);
     }
 }

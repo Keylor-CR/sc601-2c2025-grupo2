@@ -60,6 +60,8 @@
     <Compile Include="DTOs\ReportesMensuales\ListReportesMensualesDto.cs" />
     <Compile Include="Dtos\Sinpe\ListSinpeDto.cs" />
     <Compile Include="Dtos\Sinpe\SinpeCreateDto.cs" />
+    <Compile Include="Dtos\Sinpe\SinpeSyncRequestDto.cs" />
+    <Compile Include="Dtos\Sinpe\SinpeSyncResultDto.cs" />
     <Compile Include="Dtos\Usuario\CreateUsuarioDto.cs" />
     <Compile Include="Dtos\Usuario\EditUsuarioDto.cs" />
     <Compile Include="Dtos\Usuario\ListUsuarioDto.cs" />
