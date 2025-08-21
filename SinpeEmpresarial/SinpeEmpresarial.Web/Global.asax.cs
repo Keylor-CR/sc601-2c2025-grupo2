@@ -23,21 +23,30 @@ namespace SinpeEmpresarial.Web
         }
         private void CreateRolesAndUsers()
         {
-            var context = new ApplicationDbContext();
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            // Crear rol Administrador si no existe
-            if (!roleManager.RoleExists("Administrador"))
+            try
             {
-                var role = new IdentityRole("Administrador");
-                roleManager.Create(role);
+                var context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+                // Crear rol Administrador si no existe
+                if (!roleManager.RoleExists("Administrador"))
+                {
+                    var role = new IdentityRole("Administrador");
+                    roleManager.Create(role);
+                }
+
+                // Crear rol Cajero si no existe
+                if (!roleManager.RoleExists("Cajero"))
+                {
+                    var role = new IdentityRole("Cajero");
+                    roleManager.Create(role);
+                }
             }
-
-            // Crear rol Cajero si no existe
-            if (!roleManager.RoleExists("Cajero"))
+            catch (Exception ex)
             {
-                var role = new IdentityRole("Cajero");
-                roleManager.Create(role);
+                // Log the error or handle it appropriately
+                System.Diagnostics.Debug.WriteLine("Error al crear roles: " + ex.Message);
+                // Don't throw the exception to prevent application crash
             }
         }
     }

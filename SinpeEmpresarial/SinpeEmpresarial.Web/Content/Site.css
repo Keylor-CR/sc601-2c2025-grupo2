@@ -1,20 +1,216 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿body {
+    background: rgb(206, 237, 233);
+    font-family: monospace;
+}
+
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+h1 {
+    color: rgb(28, 170, 170);
+    border-color: rgb(3, 110, 83);
+    border-width: 2px;
+    border-style: solid;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(28, 170, 170, 0.1), rgba(3, 110, 83, 0.1));
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+h2 {
+    color: rgb(28, 170, 170);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: rgb(3, 110, 83);
+    margin-bottom: 20px;
+}
+
+.jumbotron {
+    background: linear-gradient(135deg, rgb(206, 237, 233), rgb(28, 170, 170));
+    color: rgb(3, 110, 83);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgba(28, 170, 170, 0.3);
+}
+
+.card {
+    border: 2px solid rgb(28, 170, 170);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(28, 170, 170, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(28, 170, 170, 0.4);
+}
+
+.card-header {
+    background: linear-gradient(135deg, rgb(28, 170, 170), rgb(3, 110, 83));
+    color: white;
+    border-radius: 13px 13px 0 0 !important;
+    padding: 1rem;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background: rgb(206, 237, 233);
+    border-radius: 0 0 13px 13px !important;
+    padding: 1rem;
+}
+
+.btn {
+    border-radius: 25px;
+    font-weight: bold;
+    padding: 12px 30px;
+    transition: all 0.3s ease;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, rgb(28, 170, 170), rgb(3, 110, 83));
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, rgb(40, 167, 69), rgb(20, 120, 50));
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, rgb(255, 193, 7), rgb(220, 150, 0));
+    color: rgb(3, 110, 83);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, rgb(220, 53, 69), rgb(180, 30, 45));
+    color: white;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, rgb(23, 162, 184), rgb(0, 123, 255));
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, rgb(108, 117, 125), rgb(80, 90, 100));
+    color: white;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.alert {
+    border-radius: 15px;
+    border: 2px solid rgb(28, 170, 170);
+    background: rgba(206, 237, 233, 0.3);
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-control {
+    border-radius: 20px;
+    border: 2px solid rgb(28, 170, 170);
+    background: rgba(206, 237, 233, 0.2);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: rgb(3, 110, 83);
+    box-shadow: 0 0 0 0.2rem rgba(28, 170, 170, 0.25);
+    background: white;
+}
+
+.navbar {
+    background: linear-gradient(135deg, rgb(28, 170, 170), rgb(3, 110, 83)) !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(28, 170, 170, 0.2);
+    border: 2px solid rgb(28, 170, 170);
+}
+
+.table thead {
+    background: linear-gradient(135deg, rgb(28, 170, 170), rgb(3, 110, 83));
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(206, 237, 233, 0.3);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background: rgba(28, 170, 170, 0.1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: rgb(3, 110, 83);
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+footer {
+    background: linear-gradient(135deg, rgb(28, 170, 170), rgb(3, 110, 83));
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .jumbotron {
+        padding: 1.5rem 1rem;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
 }
