@@ -58,8 +58,8 @@
                 @Html.DisplayFor(modelItem => item.EstadoString)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-warning" }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-secondary" }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-warning" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.IdComercio }, new { @class = "btn btn-sm btn-secondary" })
                 @Html.ActionLink("Ver Cajas", "PorComercio", "Caja", new { comercioId = item.IdComercio }, new { @class = "btn btn-sm btn-info" })
             </td>
             <td>

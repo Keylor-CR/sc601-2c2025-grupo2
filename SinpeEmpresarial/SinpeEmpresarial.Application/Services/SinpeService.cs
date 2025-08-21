@@ -107,8 +107,14 @@ namespace SinpeEmpresarial.Application.Services
             if (sinpe == null) throw new Exception("SINPE no encontrado");
             if (sinpe.Estado) return new ResponseModel(false, "El pago SINPE ya ha sido sincronizado previamente.");
 
+            var beforeJson = JsonConvert.SerializeObject(sinpe);
+
             sinpe.Estado = true;
             _sinpeRepository.Update(sinpe);
+
+            var sinpe_after = _sinpeRepository.GetById(idSinpe);
+
+            var afterJson = JsonConvert.SerializeObject(sinpe_after);
 
             //registrar evento en bitacora
             _bitacoraService.RegisterEvento(new BitacoraEventoDto
@@ -117,8 +123,8 @@ namespace SinpeEmpresarial.Application.Services
                 TipoDeEvento = "Sincronizar",
                 DescripcionDeEvento = "Pago SINPE sincronizado exitosamente",
                 StackTrace = "",
-                DatosAnteriores = JsonConvert.SerializeObject(sinpe),
-                DatosPosteriores = null
+                DatosAnteriores = beforeJson,
+                DatosPosteriores = afterJson
             });
             return new ResponseModel(true, "El pago SINPE ha sido sincronizado exitosamente.");
 
