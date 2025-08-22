@@ -43,6 +43,11 @@ namespace SinpeEmpresarial.Application.Services
             return comercio != null ? MapToDetailDTO(comercio) : null;
         }
 
+        public ComercioDetailDto GetComercioByTelefono(string telefono)
+        {
+            var comercio = _comercioRepository.GetByTelefono(telefono);
+            return comercio != null ? MapToDetailDTO(comercio) : null;
+        } 
         public ComercioDetailDto GetComercioByIdentificacion(string id)
         {
             throw new NotImplementedException();

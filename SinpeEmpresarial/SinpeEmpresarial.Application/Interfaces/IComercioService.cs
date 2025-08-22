@@ -6,6 +6,7 @@ namespace SinpeEmpresarial.Application.Interfaces
     public interface IComercioService
     {
         ComercioDetailDto GetComercioById(int id);
+        ComercioDetailDto GetComercioByTelefono(string telefono);
         ComercioDetailDto GetComercioByIdentificacion(string id);
         List<ComercioListDto> GetAllComercios();
         void RegisterComercio(ComercioCreateDto dto);

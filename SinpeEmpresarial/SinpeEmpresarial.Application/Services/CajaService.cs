@@ -24,6 +24,7 @@ namespace SinpeEmpresarial.Application.Services
         {
             return _repo.GetById(id);
         }
+
         public List<ListCajaDto> GetAll()
         {
             return _repo.GetAll()

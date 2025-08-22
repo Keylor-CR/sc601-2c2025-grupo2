@@ -6,6 +6,7 @@ namespace SinpeEmpresarial.Domain.Interfaces.Repositories
     {
 
         Comercio GetById(int id);
+        Comercio GetByTelefono(string telefono);
         Comercio GetByIdentificacion(string identificacion);
         List<Comercio> GetAll();
         void Add(Comercio entity);

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SinpeEmpresarial.Application.Dtos.Bitacora;
 using SinpeEmpresarial.Application.Dtos.Sinpe;
 using SinpeEmpresarial.Application.Interfaces;
+using SinpeEmpresarial.Domain;
 using SinpeEmpresarial.Domain.Entities;
 using SinpeEmpresarial.Domain.Interfaces.Repositories;
 using SinpeEmpresarial.Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SinpeEmpresarial.Application.Services
 {
@@ -16,12 +17,15 @@ namespace SinpeEmpresarial.Application.Services
         private readonly ISinpeRepository _sinpeRepository;
         private readonly ICajaRepository _cajaRepository;
         private readonly IBitacoraService _bitacoraService;
+        private readonly IConfiguracionComercioRepository _configComercioRepository;
 
-        public SinpeService(ISinpeRepository sinpeRepository, ICajaRepository cajaRepository, IBitacoraService bitacoraService)
+
+        public SinpeService(ISinpeRepository sinpeRepository, ICajaRepository cajaRepository, IBitacoraService bitacoraService, IConfiguracionComercioRepository configComercioRepository)
         {
             _sinpeRepository = sinpeRepository;
             _cajaRepository = cajaRepository;
             _bitacoraService = bitacoraService;
+            _configComercioRepository = configComercioRepository;
         }
 
         public List<ListSinpeDto> GetByCajaTelefono(string telefonoDestino)
@@ -106,6 +110,15 @@ namespace SinpeEmpresarial.Application.Services
             var sinpe = _sinpeRepository.GetById(idSinpe);
             if (sinpe == null) throw new Exception("SINPE no encontrado");
             if (sinpe.Estado) return new ResponseModel(false, "El pago SINPE ya ha sido sincronizado previamente.");
+
+            var cajaDestino = _cajaRepository.GetByTelefono(sinpe.TelefonoDestino);
+
+            var cfg = _configComercioRepository.GetByComercioId(cajaDestino.IdComercio);
+            if (cfg == null) throw new Exception("Comercio no configurado");
+
+            if (!(cfg.TipoConfiguracion == 2 ||
+                  cfg.TipoConfiguracion == 3))
+                throw new UnauthorizedAccessException("El comercio no está autorizado para sincronización externa.");
 
             var beforeJson = JsonConvert.SerializeObject(sinpe);
 

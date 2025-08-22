@@ -17,6 +17,12 @@ namespace SinpeEmpresarial.Infrastructure.Repositories
         {
             return _context.COMERCIOS.FirstOrDefault(c => c.IdComercio == id);
         }
+
+        public Comercio GetByTelefono(string telefono)
+        {
+            return _context.COMERCIOS.FirstOrDefault(c => c.Telefono == telefono);
+        }
+
         public Comercio GetByIdentificacion(string identificacion)
         {
             return _context.COMERCIOS.FirstOrDefault(c => c.Identificacion == identificacion);
